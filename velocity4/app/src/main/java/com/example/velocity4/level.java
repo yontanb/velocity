@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -69,9 +70,9 @@ public class level {
         for (shape s : base.getLayer()) {
             if (player.collision(s)) {
                 direction dir = player.dirToOtherShape(s);
+                Log.d("testing collider", dir.toString());
                 if (dir == direction.down) {
                     player.canDown = false;
-
                 }
                 if (dir == direction.up) {
                     player.canUp = false;

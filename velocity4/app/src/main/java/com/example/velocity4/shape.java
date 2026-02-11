@@ -43,16 +43,17 @@ public  class shape {
             return  direction.none;
         if(this.rect.top >= other.rect.bottom) {
             return direction.up;
-        }
+        } else
         if(this.rect.bottom >= other.rect.top) {
             return direction.down;
-        }
-        if( this.rect.left <= other.rect.right) {
+        } else
+        if( this.rect.left >= other.rect.right) {
             return  direction.left;
-        }
-        if( this.rect.right >= other.rect.left) {
+        } else
+        if( this.rect.right <= other.rect.left) {
             return  direction.right;
         }
         return  direction.none;
     }
+
 }

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -61,6 +62,8 @@ public class gameView extends View {
             if(jump.isInside(x,y)) {
                 player1.dy = -60;
             }
+
+
 
         }
         if(event.getAction() == MotionEvent.ACTION_UP) {
