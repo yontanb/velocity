@@ -29,7 +29,6 @@ public class level {
         bitmap1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.button2);
         playr.getLayer().add(new shape(500, 900, 150, 150, bitmap1));
         playr.getLayer().add(new shape(1500, 900, 150, 150, bitmap1));
-        playr.getLayer().add(new shape(1300, 900, 150, 150, bitmap1));
     }
 
     public layer getBase() {
@@ -64,7 +63,14 @@ public class level {
         if (playr != null)
             playr.drawLayer(canvas);
     }
-
+    public void  playerdeathcheck() {
+        player player = (player) playr.getLayer().get(0);
+        for( shape s : obst.getLayer()) {
+            if(player.collision(s)) {
+                player.death();
+            }
+        }
+    }
     public void playerCollide() {
         player player = (player) playr.getLayer().get(0);
         player.canLeft = player.canUp = player.canRight = player.canDown = true;

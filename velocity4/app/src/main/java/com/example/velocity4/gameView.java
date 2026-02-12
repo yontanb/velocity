@@ -29,6 +29,7 @@ public class gameView extends View {
         lvl.drawLevel(canvas);
         invalidate();
         player player = (player)lvl.playr.getLayer().get(0);
+        player.gravity();
         if(ismovingright) {
             player.moveRight();
         }
@@ -36,8 +37,7 @@ public class gameView extends View {
             player.moveLeft();
         }
         lvl.playerCollide();
-        player.gravity();
-
+        lvl.playerdeathcheck();
     }
 
 //    int x,y,x2,y2;
@@ -64,10 +64,6 @@ public class gameView extends View {
             if(up.isInside(x,y)) {
                 player1.dy = -60;
             }
-
-
-
-
         }
         if(event.getAction() == MotionEvent.ACTION_UP) {
             ismovingleft = false;
