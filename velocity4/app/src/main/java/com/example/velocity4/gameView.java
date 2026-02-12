@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class gameView extends View {
     level lvl;
-    boolean ismovingleft, isIsmovingright;
+    boolean ismovingleft, ismovingright, ismovingUp,ismovingdown;
 
 
     public gameView(Context context, level lvl) {
@@ -29,7 +29,7 @@ public class gameView extends View {
         lvl.drawLevel(canvas);
         invalidate();
         player player = (player)lvl.playr.getLayer().get(0);
-        if(isIsmovingright) {
+        if(ismovingright) {
             player.moveRight();
         }
         if(ismovingleft) {
@@ -51,24 +51,28 @@ public class gameView extends View {
             int y = (int)event.getY();
             shape left = lvl.playr.getLayer().get(1);
             shape right = lvl.playr.getLayer().get(2);
-            shape jump = lvl.playr.getLayer().get(3);
+            shape up = lvl.playr.getLayer().get(3);
+
+
             player player1 = (player) lvl.playr.getLayer().get(0);
             if(left.isInside(x,y)) {
                 ismovingleft = true;
             }
             if(right.isInside(x,y)) {
-                isIsmovingright = true;
+                ismovingright = true;
             }
-            if(jump.isInside(x,y)) {
+            if(up.isInside(x,y)) {
                 player1.dy = -60;
             }
+
 
 
 
         }
         if(event.getAction() == MotionEvent.ACTION_UP) {
             ismovingleft = false;
-            isIsmovingright = false;
+            ismovingright = false;
+
         }
         invalidate();
         return true;

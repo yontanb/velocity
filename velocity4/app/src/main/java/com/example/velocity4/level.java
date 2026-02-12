@@ -23,12 +23,13 @@ public class level {
 
     public void setPlayrLayer() {
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ph2);
-        playr.getLayer().add(new player(300, 400, 200, 300, bitmap));
+        playr.getLayer().add(new player(300, 400, 100, 200, bitmap));
         Bitmap bitmap1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.button);
         playr.getLayer().add(new shape(200, 900, 150, 150, bitmap1));
         bitmap1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.button2);
         playr.getLayer().add(new shape(500, 900, 150, 150, bitmap1));
         playr.getLayer().add(new shape(1500, 900, 150, 150, bitmap1));
+        playr.getLayer().add(new shape(1300, 900, 150, 150, bitmap1));
     }
 
     public layer getBase() {

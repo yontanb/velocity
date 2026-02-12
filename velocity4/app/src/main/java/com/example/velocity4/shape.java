@@ -41,22 +41,24 @@ public  class shape {
     public direction dirToOtherShape( shape other ) {
         if(other == null)
             return  direction.none;
-        direction dir = direction.none;
-        if(this.rect.top >= other.rect.bottom) {
-            dir = direction.up;
-        } else
-        if(this.rect.bottom >= other.rect.top) {
-            dir = direction.down;
-        } else
-        if( this.rect.left >= other.rect.right) {
-            dir = direction.left;
-        } else
-        if( this.rect.right <= other.rect.left) {
-            dir = direction.right;
+        float overlapWidth = Math.min(this.rect.right, other.rect.right) - Math.max(this.rect.left, other.rect.left);
+        float overlapHeight = Math.min(this.rect.bottom, other.rect.bottom) - Math.max(this.rect.top, other.rect.top);
+        if (overlapWidth < overlapHeight) {
+            // Horizontal collision
+            if (this.rect.centerX() > other.rect.centerX())
+                return direction.left;
+            else
+                return direction.right;
+        } else {
+            // Vertical collision
+            if (this.rect.centerY() > other.rect.centerY())
+
+                return direction.up;
+            else {
+                rect.offsetTo(this.rect.left, other.rect.top - this.rect.height());
+                return direction.down;
+            }
         }
-        return dir;
+
     }
-
-
-
-}
+   }

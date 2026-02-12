@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 
 public class player extends shape {
     int health;
-    int dx = 20 ,dy = 10;
+    int dx = 15 ,dy = 0;
     int startx, starty;
     public player(int x, int y, int width, int height, Bitmap bitmap) {
         super(x, y, width, height, bitmap);
@@ -34,6 +34,15 @@ public class player extends shape {
         if(canRight)
             rect.offset(dx, 0);
     }
+    public void moveUp() {
+       if(canUp)
+        rect.offset(0,-dy);
+    }
+    public void movedown() {
+        if(canDown)
+            rect.offset(0,dy);
+    }
+
     int grav = 3;
     public void gravity() {
         if((canDown && dy > 0) || (canUp && dy < 0)) {
@@ -41,10 +50,10 @@ public class player extends shape {
         } else {
             dy = 0;
         }
-        dy += grav;
-
+        if(dy >= 30)
+            dy = 30;
+        else
+            dy += grav;
     }
-
-
 
 }

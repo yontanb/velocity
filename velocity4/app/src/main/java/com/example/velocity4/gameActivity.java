@@ -18,8 +18,8 @@ public class gameActivity extends levelholder {
         super.onCreate(savedInstanceState);
         layer base = new layer(new ArrayList<>());
 
-        base.getLayer().add(new shape(0,700,1500,500, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
-        base.getLayer().add(new shape(200,300,100,500, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
+        base.getLayer().add(new shape(0,900,2000,500, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
+        base.getLayer().add(new shape(100,500,200,200, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
         lvl = new level(base,null,this);
         setContentView(new gameView(this,lvl));
     }
