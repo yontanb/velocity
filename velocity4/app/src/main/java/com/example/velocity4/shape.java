@@ -41,19 +41,22 @@ public  class shape {
     public direction dirToOtherShape( shape other ) {
         if(other == null)
             return  direction.none;
+        direction dir = direction.none;
         if(this.rect.top >= other.rect.bottom) {
-            return direction.up;
+            dir = direction.up;
         } else
         if(this.rect.bottom >= other.rect.top) {
-            return direction.down;
+            dir = direction.down;
         } else
         if( this.rect.left >= other.rect.right) {
-            return  direction.left;
+            dir = direction.left;
         } else
         if( this.rect.right <= other.rect.left) {
-            return  direction.right;
+            dir = direction.right;
         }
-        return  direction.none;
+        return dir;
     }
+
+
 
 }
