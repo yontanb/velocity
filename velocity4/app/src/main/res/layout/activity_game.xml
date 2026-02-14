@@ -1,13 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gameActivity">
-    <TextView
+    tools:context=".gameActivity"
+    android:orientation="horizontal"
+    >
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="hellow world"/>
-</LinearLayout>
+        android:id="@+id/gamelayout">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="left"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/goLeft"
+            android:layout_margin="20dp"
+
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="right"
+            android:layout_toRightOf="@id/goLeft"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/goRight"
+            android:layout_margin="20dp"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="jump"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/jump"
+            android:layout_margin="20dp"
+            />
+
+
+    </RelativeLayout>
+
+
+
+</FrameLayout>

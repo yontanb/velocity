@@ -12,5 +12,4 @@ public class obstacle extends shape {
     }
     int damage;
 
-
 }

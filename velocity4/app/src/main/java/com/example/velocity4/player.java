@@ -19,9 +19,7 @@ public class player extends shape {
         health -= dmg;
     }
     public void death() {
-            health = 100;
-            rect.offsetTo(startx,starty);
-
+        rect.offsetTo(startx,starty);
     }
     boolean canUp = true , canRight = true , canLeft = true , canDown = true;
     public void moveLeft() {
@@ -49,8 +47,8 @@ public class player extends shape {
         } else {
             dy = 0;
         }
-        if(dy >= 30)
-            dy = 30;
+        if(dy >= 60)
+            dy = 60;
         else
             dy += grav;
     }
