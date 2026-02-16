@@ -11,6 +11,7 @@ public class level {
     layer base;
     layer obst;
     layer playr = new layer(new ArrayList<>());
+    player player;
     Context context;
 
     public level(layer base, layer obst, Context context) {
@@ -18,6 +19,7 @@ public class level {
         this.base = base;
         this.obst = obst;
         setPlayrLayer();
+        player = (player) playr.getLayer().get(0);
     }
 
     public void setPlayrLayer() {
@@ -49,7 +51,9 @@ public class level {
     public layer getPlayer() {
         return playr;
     }
-
+    public player getgameplayer() {
+        return (player) playr.getLayer().get(0);
+    }
     public void setPlayer(layer player) {
         this.playr = player;
     }
@@ -61,6 +65,9 @@ public class level {
             obst.drawLayer(canvas);
         if (playr != null)
             playr.drawLayer(canvas);
+    }
+    public player getGamePlayer() {
+        return player;
     }
 
     public void playerCollide() {

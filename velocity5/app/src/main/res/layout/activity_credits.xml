@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:background="@drawable/background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="velocity"
+        android:layout_gravity="center"
+        android:textSize="50sp"
+        android:id="@+id/title1"
+        android:textColor="@color/white"
+        android:fontFamily="serif-monospace"
+        android:layout_centerHorizontal="true"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="made by: Yonatan Berler"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:id="@+id/title2"
+        android:fontFamily="serif-monospace"
+        android:layout_below="@id/title1"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ideas by: Yonatan Berler"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:id="@+id/title3"
+        android:textColor="@color/white"
+        android:fontFamily="serif-monospace"
+        android:layout_below="@id/title2"
+        android:layout_centerHorizontal="true"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="back to main menu"
+        android:id="@+id/back"
+        android:backgroundTint="@color/button"
+        android:layout_gravity="center"
+        android:layout_margin="10sp"
+        android:layout_alignParentBottom="true"
+
+        />
+</RelativeLayout>
