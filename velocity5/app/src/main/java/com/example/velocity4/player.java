@@ -19,10 +19,13 @@ public class player extends shape {
         health -= dmg;
     }
     public void death() {
-        if(health == 0) {
+
             health = 100;
             rect.offsetTo(startx,starty);
-        }
+
+    }
+    public void win() {
+
     }
     boolean canUp = true , canRight = true , canLeft = true , canDown = true;
     public void moveLeft() {

@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-public  class shape {
+public class shape {
     Rect rect;
     Bitmap bitmap;
 
@@ -60,4 +60,6 @@ public  class shape {
             }
         }
     }
+
+
 }

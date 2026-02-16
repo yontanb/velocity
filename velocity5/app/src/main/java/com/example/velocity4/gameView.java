@@ -47,7 +47,8 @@ public class gameView extends View {
             player.moveLeft();
         }
         lvl.playerCollide();
-//        lvl.playerdeathcheck();
+        lvl.didWin();
+        lvl.playerdeathcheck();
         canvas.restore();
     }
 //    public boolean onTouchEvent(MotionEvent event) {

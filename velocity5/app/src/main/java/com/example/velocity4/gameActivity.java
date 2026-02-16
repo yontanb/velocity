@@ -7,13 +7,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import java.util.ArrayList;
 
 public class gameActivity extends levelholder implements View.OnTouchListener {
@@ -27,11 +20,13 @@ public class gameActivity extends levelholder implements View.OnTouchListener {
         setContentView(R.layout.activity_game);
         layer base = new layer(new ArrayList<>());
         layer obst = new layer(new ArrayList<>());
+        layer chp = new layer(new ArrayList<>());
         base.getLayer().add(new shape(-100,900,5000,500, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
         base.getLayer().add(new shape(100,500,200,200, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
         base.getLayer().add(new shape(1000,300,500,200, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
         obst.getLayer().add(new shape(10,800,100,100, BitmapFactory.decodeResource(getResources(),R.drawable.spike)));
-        lvl = new level(base,obst,this);
+        chp.getLayer().add(new shape(2000,700,100,200, BitmapFactory.decodeResource(getResources(),R.drawable.checkpoint)));
+        lvl = new level(base,obst,chp,this);
         gameView = new gameView(this, lvl);
         RelativeLayout relativeLayout = findViewById(R.id.gamelayout);
         relativeLayout.addView(gameView,0);
