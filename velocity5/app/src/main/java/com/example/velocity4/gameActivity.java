@@ -34,8 +34,6 @@ public class gameActivity extends levelholder implements View.OnTouchListener {
         gameView = new gameView(this, lvl);
         RelativeLayout relativeLayout = findViewById(R.id.gamelayout);
         relativeLayout.addView(gameView,0);
-
-
         goLeft = findViewById(R.id.goLeft);
         goRight = findViewById(R.id.goRight);
         jump = findViewById(R.id.jump);

@@ -41,9 +41,11 @@ public class player extends shape {
         } else {
             dy = 0;
         }
-
-        dy += grav;
-
+        if(dy > 60) {
+            dy = 60;
+        } else {
+            dy += grav;
+        }
     }
 
 
