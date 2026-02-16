@@ -16,14 +16,14 @@ import java.util.ArrayList;
 public class gameView extends View {
     level lvl;
     boolean ismovingleft, ismovingright;
-
+    player player;
 
     public gameView(Context context, level lvl) {
         super(context);
         this.lvl = lvl;
-        player = (player)lvl.playr.getLayer().get(0);
+        this.player = lvl.player;
     }
-    player player;
+
     @Override
     public void onDraw(@NonNull Canvas canvas) {
         float playerX = player.rect.left + player.rect.width();
@@ -38,7 +38,7 @@ public class gameView extends View {
         canvas.translate(-offsetX, -offsetY);;
         lvl.drawLevel(canvas);
         invalidate();
-        player = (player)lvl.playr.getLayer().get(0);
+
         player.gravity();
         if(ismovingright) {
             player.moveRight();
@@ -50,11 +50,6 @@ public class gameView extends View {
 //        lvl.playerdeathcheck();
         canvas.restore();
     }
-
-//    int x,y,x2,y2;
-//    int taps = 0;
-//    @Override
-
 //    public boolean onTouchEvent(MotionEvent event) {
 //
 //        if(event. getAction() == MotionEvent.ACTION_DOWN) {

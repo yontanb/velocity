@@ -18,18 +18,7 @@ public class level {
         this.context = context;
         this.base = base;
         this.obst = obst;
-        setPlayrLayer();
-        player = (player) playr.getLayer().get(0);
-    }
-
-    public void setPlayrLayer() {
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ph2);
-        playr.getLayer().add(new player(300, 300, 100, 150, bitmap));
-        Bitmap bitmap1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.button);
-        playr.getLayer().add(new shape(200, 900, 150, 150, bitmap1));
-        bitmap1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.button2);
-        playr.getLayer().add(new shape(500, 900, 150, 150, bitmap1));
-        playr.getLayer().add(new shape(1500, 900, 150, 150, bitmap1));
+        player = new player(300, 300, 100, 150, BitmapFactory.decodeResource(context.getResources(), R.drawable.ph2));
     }
 
     public layer getBase() {
@@ -48,30 +37,27 @@ public class level {
         this.obst = obst;
     }
 
-    public layer getPlayer() {
-        return playr;
-    }
+
     public player getgameplayer() {
-        return (player) playr.getLayer().get(0);
+        return player;
     }
-    public void setPlayer(layer player) {
-        this.playr = player;
-    }
+
 
     public void drawLevel(Canvas canvas) {
         if (base != null)
             base.drawLayer(canvas);
         if (obst != null)
             obst.drawLayer(canvas);
-        if (playr != null)
-            playr.drawLayer(canvas);
+        if (player != null) {
+            player.drawShape(canvas);
+        }
+
     }
     public player getGamePlayer() {
         return player;
     }
 
     public void playerCollide() {
-        player player = (player) playr.getLayer().get(0);
         player.canLeft = player.canUp = player.canRight = player.canDown = true;
         for (shape s : base.getLayer()) {
             if (player.collision(s)) {
