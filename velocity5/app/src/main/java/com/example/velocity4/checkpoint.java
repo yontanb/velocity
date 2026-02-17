@@ -12,7 +12,7 @@ public class checkpoint extends shape
         checkpointx = x;
         checkpointy = y;
     }
-
+    @Override
     public void gotCheckpoint(player player) {
         Log.d("checkpointTest","got it!");
         if(winner)

@@ -12,17 +12,11 @@ public class player extends shape {
         startx = x;
         starty = y;
     }
-    public void damagePlayer( int dmg) {
-        if(health - dmg <=0) {
-            health = 0;
-        }
-        health -= dmg;
-    }
     public void death() {
-
+        if(health ==0) {
             health = 100;
-            rect.offsetTo(startx,starty);
-
+            rect.offsetTo(startx, starty);
+        }
     }
     public void win() {
 

@@ -26,15 +26,14 @@ public class gameView extends View {
 
     @Override
     public void onDraw(@NonNull Canvas canvas) {
-        float playerX = player.rect.left + player.rect.width();
-        float playerY = player.rect.top;
+        float playerX = player.rect.centerX();
+        float playerY = player.rect.centerY();
         float screenCenterX = getWidth()  / 2f;
         float screenCenterY = getHeight() / 2f;
 
         float offsetX = playerX - screenCenterX;
         float offsetY = playerY - screenCenterY;
 
-        canvas.save();
         canvas.translate(-offsetX, -offsetY);;
         lvl.drawLevel(canvas);
         invalidate();
@@ -48,8 +47,8 @@ public class gameView extends View {
         }
         lvl.playerCollide();
         lvl.didWin();
-        lvl.playerdeathcheck();
-        canvas.restore();
+//        lvl.playerdeathcheck();
+
     }
 //    public boolean onTouchEvent(MotionEvent event) {
 //

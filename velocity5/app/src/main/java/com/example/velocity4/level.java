@@ -13,13 +13,16 @@ public class level {
     layer checkpoints;
     player player;
     Context context;
-
+    private ArrayList<shape> parts;
     public level(layer base, layer obst,layer checkpoints, Context context) {
         this.context = context;
         this.base = base;
         this.obst = obst;
         this.checkpoints = checkpoints;
         player = new player(300, 300, 100, 150, BitmapFactory.decodeResource(context.getResources(), R.drawable.ph2));
+        parts = new ArrayList<>(base.getLayer());
+        parts.addAll(obst.getLayer());
+
     }
 
     public layer getBase() {
@@ -61,25 +64,28 @@ public class level {
     public player getGamePlayer() {
         return player;
     }
-//    public boolean didWin() {
-//        for(shape s : checkpoints.getLayer()) {
-//            if(s.collision(player)) {
-//                s.gotCheckpoint(player);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-    public void playerdeathcheck() {
-        for(shape s : obst.getLayer()) {
+    public boolean didWin() {
+        for(shape s : checkpoints.getLayer()) {
             if(s.collision(player)) {
-                player.death();
+                s.gotCheckpoint(player);
+                return true;
+            }
+        }
+        return false;
+    }
+    public void playerdeathcheck() {
+        boolean damaged = false;
+        for(shape s : obst.getLayer()) {
+            if(s.collision(player) && !damaged) {
+                s.damagePlayer(player);
+                damaged = true;
             }
         }
     }
     public void playerCollide() {
         player.canLeft = player.canUp = player.canRight = player.canDown = true;
-        for (shape s : base.getLayer()) {
+
+        for (shape s : parts) {
             if (player.collision(s)) {
                 direction dir = player.dirToOtherShape(s);
                 if (dir == direction.down) {
@@ -97,5 +103,6 @@ public class level {
             }
         }
     }
+
 
 }
