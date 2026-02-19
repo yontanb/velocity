@@ -66,19 +66,22 @@ public class level {
     }
     public boolean didWin() {
         for(shape s : checkpoints.getLayer()) {
-            if(s.collision(player)) {
-                s.gotCheckpoint(player);
+            if(s.collision(player) && ((checkpoint) s).winner) {
                 return true;
             }
         }
         return false;
     }
+    boolean damaged = false;
     public void playerdeathcheck() {
-        boolean damaged = false;
         for(shape s : obst.getLayer()) {
-            if(s.collision(player) && !damaged) {
-                s.damagePlayer(player);
+            if(s.collision(player)) {
+                if(!damaged)
+                    s.damagePlayer(player);
+
                 damaged = true;
+            } else {
+                damaged = false;
             }
         }
     }

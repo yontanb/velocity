@@ -24,8 +24,8 @@ public class gameActivity extends levelholder implements View.OnTouchListener {
         base.getLayer().add(new shape(-100,900,5000,500, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
         base.getLayer().add(new shape(100,500,200,200, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
         base.getLayer().add(new shape(1000,300,500,200, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
-        obst.getLayer().add(new obstacle(10,800,100,100, BitmapFactory.decodeResource(getResources(),R.drawable.spike),20));
-        chp.getLayer().add(new checkpoint(2000,700,100,200, BitmapFactory.decodeResource(getResources(),R.drawable.checkpoint),false));
+        obst.getLayer().add(new obstacle(10,800,100,100, BitmapFactory.decodeResource(getResources(),R.drawable.spike),50));
+        chp.getLayer().add(new checkpoint(2000,700,100,200, BitmapFactory.decodeResource(getResources(),R.drawable.checkpoint),true));
         lvl = new level(base,obst,chp,this);
         gameView = new gameView(this, lvl);
         RelativeLayout relativeLayout = findViewById(R.id.gamelayout);

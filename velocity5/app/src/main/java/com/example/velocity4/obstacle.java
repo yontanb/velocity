@@ -13,7 +13,6 @@ public class obstacle extends shape {
     public void damagePlayer(player player) {
         if(player.health - damage <= 0) {
             player.health = 0;
-            player.death();
         } else  {
             player.health -= damage;
         }

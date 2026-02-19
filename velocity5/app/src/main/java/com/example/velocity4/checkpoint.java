@@ -4,13 +4,13 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 public class checkpoint extends shape
-{   int checkpointx, checkpointy;
+{   int checkpointX, checkpointY;
     boolean winner;
     public checkpoint(int x, int y, int width, int height, Bitmap bitmap, boolean winner) {
         super(x, y, width, height, bitmap);
         this.winner = winner;
-        checkpointx = x;
-        checkpointy = y;
+        checkpointX = x;
+        checkpointY = y;
     }
     @Override
     public void gotCheckpoint(player player) {
@@ -18,8 +18,8 @@ public class checkpoint extends shape
         if(winner)
             player.win();
         else {
-            player.starty = checkpointy;
-            player.startx = checkpointx;
+            player.startX = checkpointX;
+            player.startY = checkpointY;
         }
     }
 
