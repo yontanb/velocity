@@ -15,6 +15,9 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.sql.Time;
+import java.time.Instant;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class gameView extends View {
@@ -22,12 +25,13 @@ public class gameView extends View {
     boolean ismovingleft, ismovingright;
     player player;
     Context context;
-
+    LocalTime startTime;
     public gameView(Context context, level lvl) {
         super(context);
         this.context = context;
         this.lvl = lvl;
         this.player = lvl.player;
+        
     }
     boolean notWon =true;
     @Override
@@ -36,10 +40,8 @@ public class gameView extends View {
         float playerY = player.rect.centerY();
         float screenCenterX = getWidth()  / 2f;
         float screenCenterY = getHeight() / 2f;
-
         float offsetX = playerX - screenCenterX;
         float offsetY = playerY - screenCenterY;
-
         canvas.translate(-offsetX, -offsetY);;
         lvl.drawLevel(canvas);
         invalidate();
