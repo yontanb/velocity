@@ -43,7 +43,7 @@ public class gameView extends View {
         canvas.translate(-offsetX, -offsetY);;
         lvl.drawLevel(canvas);
         invalidate();
-
+        lvl.healthDisplay(context);
         player.gravity();
         if(ismovingright) {
             player.moveRight();
@@ -52,13 +52,14 @@ public class gameView extends View {
             player.moveLeft();
         }
         if(player.health == 0) {
-            player.health = 100;
             GameOver();
+            player.health = 100;
         }
         if(lvl.didWin() && notWon) {
             win();
             notWon = false;
         }
+
         lvl.playerCollide();
         lvl.playerdeathcheck();
     }

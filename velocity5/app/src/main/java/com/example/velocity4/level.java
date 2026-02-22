@@ -1,9 +1,13 @@
 package com.example.velocity4;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -60,6 +64,10 @@ public class level {
         }
 
 
+    }
+    public void healthDisplay(Context context) {
+        TextView tv = ((Activity) context).findViewById(R.id.health);
+        tv.setText("health: " + player.health);
     }
     public player getGamePlayer() {
         return player;
