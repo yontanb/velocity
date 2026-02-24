@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="level: "
+        android:id="@+id/lvlname"
+        android:textSize="30dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/startBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:text="start level"
+        android:backgroundTint="@color/green"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editbtn"
+        android:layout_toRightOf="@id/startBtn"
+        android:layout_alignParentBottom="true"
+        android:text="edit level"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/blue"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="last time: "
+        android:id="@+id/last_Time"
+        android:textSize="30dp"
+        android:layout_alignParentEnd="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="last time: "
+        android:id="@+id/best_Time"
+        android:textSize="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/last_Time"/>
+</RelativeLayout>

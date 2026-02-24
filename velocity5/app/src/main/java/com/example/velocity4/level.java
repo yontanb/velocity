@@ -18,6 +18,7 @@ public class level {
     player player;
     Context context;
     private ArrayList<shape> parts;
+    String levelname;
     public level(layer base, layer obst,layer checkpoints, Context context) {
         this.context = context;
         this.base = base;
