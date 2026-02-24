@@ -1,0 +1,4 @@
+ base.getLayer().add(new shape(-100,900,5000,500, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
+        base.getLayer().add(new shape(100,500,200,200, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
+        base.getLayer().add(new shape(1000,300,500,200, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
+        obst.getLayer().add(new shape(10,800,100,100, BitmapFactory.decodeResource(getResources(),R.drawable.spike)));

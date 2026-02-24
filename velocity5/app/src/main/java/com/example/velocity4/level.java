@@ -19,17 +19,16 @@ public class level {
     Context context;
     private ArrayList<shape> parts;
     String levelname;
-    public level(layer base, layer obst,layer checkpoints, Context context) {
+    public level(layer base, layer obst,layer checkpoints, Context context, boolean playerNeeded) {
         this.context = context;
         this.base = base;
         this.obst = obst;
         this.checkpoints = checkpoints;
-        player = new player(300, 300, 100, 150, BitmapFactory.decodeResource(context.getResources(), R.drawable.ph2));
+        if(playerNeeded)
+            player = new player(300, 300, 100, 150, BitmapFactory.decodeResource(context.getResources(), R.drawable.ph2));
         parts = new ArrayList<>(base.getLayer());
         parts.addAll(obst.getLayer());
-
     }
-
     public layer getBase() {
         return base;
     }
@@ -94,6 +93,7 @@ public class level {
             }
         }
     }
+
     public void playerCollide() {
         player.canLeft = player.canUp = player.canRight = player.canDown = true;
 
