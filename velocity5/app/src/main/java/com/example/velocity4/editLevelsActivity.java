@@ -39,23 +39,29 @@ public class editLevelsActivity extends AppCompatActivity implements View.OnTouc
     public boolean onTouch(View v, MotionEvent event) {
         if(v == left) {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                editView.cameraX-=10;
+                editView.cameraMovement[2] = true;
             }
         }
         if(v == right) {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                editView.cameraX +=10;
+                editView.cameraMovement[3] = true;
             }
         }
         if(v == up) {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                editView.cameraY -=10;
+                editView.cameraMovement[0] = true;
             }
         }
         if(v == down) {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                editView.cameraY +=10;
+                editView.cameraMovement[1] = true;
             }
+        }
+        if(event.getAction() == MotionEvent.ACTION_UP) {
+            editView.cameraMovement[0] = false;
+            editView.cameraMovement[1] = false;
+            editView.cameraMovement[2] = false;
+            editView.cameraMovement[3] = false;
         }
         return true;
     }

@@ -10,6 +10,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editlayout">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/selectionPanel"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical"-->
+<!--            >-->
+<!--        <Button-->
+<!--            android:layout_width="120dp"-->
+<!--            android:layout_height="70dp"-->
+<!--            android:text="baseplate" />-->
+<!--        <Button-->
+<!--            android:layout_width="120dp"-->
+<!--            android:layout_height="70dp"-->
+<!--            android:text="spike"/>-->
+<!--        <Button-->
+<!--            android:layout_width="120dp"-->
+<!--            android:layout_height="70dp"-->
+<!--            android:text="checkpoint"/>-->
+<!--        <Button-->
+<!--            android:layout_width="120dp"-->
+<!--            android:layout_height="70dp"-->
+<!--            android:text="spawn"/>-->
+<!--        </LinearLayout>-->
         <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,6 +70,8 @@
                 android:layout_height="wrap_content"
                 android:text="down"/>
         </GridLayout>
+
+
 
     </RelativeLayout>
 </FrameLayout>

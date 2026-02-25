@@ -58,14 +58,15 @@ public class gameView extends View {
             player.health = 100;
         }
         if(lvl.didWin() && notWon) {
-            win();
             notWon = false;
+            win();
         }
 
         lvl.playerCollide();
         lvl.playerdeathcheck();
     }
     private void win() {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("you beat the level!");
         builder.setMessage("try again?");
@@ -74,6 +75,7 @@ public class gameView extends View {
         builder.setNegativeButton("go to title screen", new HandleAlertDialogClickListener());
         AlertDialog dialog = builder.create();
         dialog.show();
+
     }
     private void GameOver() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -96,6 +98,7 @@ public class gameView extends View {
             Log.d("dialog",msg);
             if(which == -1 ) {
                 player.death();
+                notWon = true;
             }
             if(which == -2) {
                 ((Activity) context).finish();

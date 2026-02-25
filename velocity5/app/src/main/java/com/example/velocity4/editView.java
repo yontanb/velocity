@@ -15,6 +15,8 @@ public class editView extends View {
     Context context;
     level levelEditing;
     float cameraX = 0, cameraY = 0;
+    // up, down,left,right
+    boolean[] cameraMovement = {false,false,false,false};
     public editView(Context context) {
         super(context);
         this.context = context;
@@ -26,12 +28,27 @@ public class editView extends View {
         levelEditing = level;
         this.context = context;
     }
+    public void moveCamera() {
+        if(cameraMovement[0]) {
+            cameraY += 10;
+        }
+        if(cameraMovement[1]) {
+            cameraY -= 10;
+        }
+        if(cameraMovement[2]) {
+            cameraX += 10;
+        }
+        if(cameraMovement[3]) {
+            cameraX -= 10;
+        }
+    }
     @Override
     public void onDraw(@NonNull Canvas canvas) {
         canvas.translate(cameraX,cameraY);
         if(levelEditing != null) {
             levelEditing.drawLevel(canvas);
         }
+        moveCamera();
         invalidate();
     }
     int taps = 0;
@@ -53,14 +70,10 @@ public class editView extends View {
                 float height = Math.abs(y2 - y1);
                 float X = Math.min(x1,x2);
                 float Y = Math.min(y1,y2);
-                levelEditing.base.getLayer().add(new shape( (int) X, (int) Y, (int) width, (int) height, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
+                levelEditing.base.getLayer().add(new shape((int) ((int) X - cameraX), (int) ((int) Y - cameraY), (int) width, (int) height, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
             }
             taps = (taps+1)%2;
         }
-
-
-
-
         return super.onTouchEvent(event);
     }
 }
