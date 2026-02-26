@@ -1,6 +1,7 @@
 package com.example.velocity4;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class gameActivity extends levelholder implements View.OnTouchListener {
     level lvl;
@@ -18,16 +20,13 @@ public class gameActivity extends levelholder implements View.OnTouchListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        layer base = new layer(new ArrayList<>());
-        layer obst = new layer(new ArrayList<>());
-        layer chp = new layer(new ArrayList<>());
-        base.getLayer().add(new shape(-100,900,5000,500, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
-        base.getLayer().add(new shape(100,500,200,200, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
-        base.getLayer().add(new shape(1000,300,500,200, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
-        obst.getLayer().add(new obstacle(10,800,100,100, BitmapFactory.decodeResource(getResources(),R.drawable.spike),50));
-        chp.getLayer().add(new checkpoint(2000,700,100,200, BitmapFactory.decodeResource(getResources(),R.drawable.checkpoint),true));
 
-        lvl = new level(base,obst,chp,this,true);
+        Intent intent = getIntent();
+        if(intent.hasExtra("level")) {
+            lvl = (level) Objects.requireNonNull(intent.getExtras()).get("level");
+        }
+
+        assert lvl != null;
         gameView = new gameView(this, lvl);
         RelativeLayout relativeLayout = findViewById(R.id.gamelayout);
         relativeLayout.addView(gameView,0);

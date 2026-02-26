@@ -26,7 +26,7 @@ public class MainActivity extends levelholder implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v == btn) {
-            Intent intent = new Intent(this, editLevelsActivity.class);
+            Intent intent = new Intent(this, levelsActivity.class);
             startActivity(intent);
         }
         if(v == credits) {

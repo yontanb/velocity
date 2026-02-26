@@ -35,7 +35,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="last time: "
+        android:text="best time: "
         android:id="@+id/best_Time"
         android:textSize="30dp"
         android:layout_alignParentEnd="true"
