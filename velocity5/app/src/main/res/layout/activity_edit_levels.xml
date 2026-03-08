@@ -10,7 +10,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editlayout">
-
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/saveBtn"
+            android:text="save level"
+            android:layout_alignParentRight="true"/>
         <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

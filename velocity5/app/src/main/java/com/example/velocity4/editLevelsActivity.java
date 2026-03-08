@@ -11,18 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
 
-public class editLevelsActivity extends AppCompatActivity implements View.OnTouchListener {
+public class editLevelsActivity extends levelholder implements View.OnTouchListener {
     editView editView;
-    Button left,right,up,down;
+    Button left,right,up,down,save;
+    Boolean isNewLvl = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         if(intent.hasExtra("level")) {
-            level level = (level) Objects.requireNonNull(intent.getExtras()).get("level");
-            editView = new editView(this,level);
-        } else {
-            editView = new editView(this);
+            level level = levels.get((Integer) intent.getExtras().get("level"));
+            editView = new editView(this, level);
         }
         setContentView(R.layout.activity_edit_levels);
         RelativeLayout ui = findViewById(R.id.editlayout);
@@ -31,6 +30,8 @@ public class editLevelsActivity extends AppCompatActivity implements View.OnTouc
         right = findViewById(R.id.btnRight);
         up = findViewById(R.id.btnUp);
         down = findViewById(R.id.btnDown);
+        save = findViewById(R.id.saveBtn);
+        save.setOnTouchListener(this);
         left.setOnTouchListener(this);
         right.setOnTouchListener(this);
         up.setOnTouchListener(this);
@@ -57,6 +58,12 @@ public class editLevelsActivity extends AppCompatActivity implements View.OnTouc
                 editView.cameraMovement[1] = true;
             }
         }
+        if(v == save) {
+            if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                finish();
+            }
+        }
+
         if(event.getAction() == MotionEvent.ACTION_UP) {
             editView.cameraMovement[0] = false;
             editView.cameraMovement[1] = false;

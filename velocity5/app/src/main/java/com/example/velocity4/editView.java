@@ -20,7 +20,6 @@ public class editView extends View {
     public editView(Context context) {
         super(context);
         this.context = context;
-
         levelEditing = new level(new layer(new ArrayList<>()),new layer(new ArrayList<>()),new layer(new ArrayList<>()),context,false);
     }
     public editView(Context context, level level) {

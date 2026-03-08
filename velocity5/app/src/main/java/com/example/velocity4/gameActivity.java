@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -20,12 +21,11 @@ public class gameActivity extends levelholder implements View.OnTouchListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
         Intent intent = getIntent();
         if(intent.hasExtra("level")) {
-            lvl = (level) Objects.requireNonNull(intent.getExtras()).get("level");
+            lvl = levels.get((int)intent.getExtras().get("level"));
+            lvl.playerNeeded = true;
         }
-
         assert lvl != null;
         gameView = new gameView(this, lvl);
         RelativeLayout relativeLayout = findViewById(R.id.gamelayout);
@@ -36,7 +36,6 @@ public class gameActivity extends levelholder implements View.OnTouchListener {
         goRight.setOnTouchListener(this);
         jump.setOnTouchListener(this);
         goLeft.setOnTouchListener(this);
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
