@@ -15,8 +15,23 @@ public class editView extends View {
     Context context;
     level levelEditing;
     float cameraX = 0, cameraY = 0;
-    // up, down,left,right
+    /*
+    camera movement for checking:
+    [0] -> up
+    [1] -> down
+    [2] -> left
+    [3] -> right
+     */
     boolean[] cameraMovement = {false,false,false,false};
+    /*
+    parts chosen order for checking:
+    [0] -> base part
+    [1] -> obstacle
+    [2] -> checkpoint
+    [3] -> finish line
+    [4] -> player spawn
+     */
+    boolean[] partChosen = {false,false,false,false,false};
     public editView(Context context) {
         super(context);
         this.context = context;

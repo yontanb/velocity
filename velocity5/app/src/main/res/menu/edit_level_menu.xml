@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/save_level"
+        android:title="Save the level"/>
+    <item
+        android:id="@+id/add_base"
+        android:title="add a base part"/>
+    <item
+        android:id="@+id/add_obst"
+        android:title="add a obstacle"/>
+    <item
+        android:id="@+id/add_checkpoint"
+        android:title="add a checkpoint"/>
+    <item
+        android:id="@+id/add_finish"
+        android:title="choose finish"/>
+    <item
+        android:id="@+id/add_spawn"
+        android:title="choose spawn"/>
+
+</menu>
