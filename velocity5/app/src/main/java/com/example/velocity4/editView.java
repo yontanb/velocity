@@ -67,27 +67,87 @@ public class editView extends View {
     }
     int taps = 0;
     float x1 = 0,y1 = 0;
+    public void switchReset() {
+        taps = 0;
+        x1 = 0;
+        y1 = 0;
+    }
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        // base part
+        if(partChosen[0])
+        {
+            if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                float x2,y2;
+                if(taps == 0) {
+                    x1 = event.getX();
+                    y1 = event.getY();
+                }
+                if(taps == 1) {
+                    x2 = event.getX();
+                    y2 = event.getY();
+                    float width = Math.abs(x2 - x1);
+                    float height = Math.abs(y2 - y1);
+                    float X = Math.min(x1,x2);
+                    float Y = Math.min(y1,y2);
+                    levelEditing.base.getLayer().add(new shape((int) ((int) X - cameraX), (int) ((int) Y - cameraY), (int) width, (int) height, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
+                }
+                taps = (taps+1)%2;
+            }
 
-        if(event.getAction() == MotionEvent.ACTION_DOWN) {
-            float x2,y2;
-            if(taps == 0) {
+        }
+        //obstacle
+        else if(partChosen[1]) {
+            if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                float x2,y2;
+                if(taps == 0) {
+                    x1 = event.getX();
+                    y1 = event.getY();
+                }
+                if(taps == 1) {
+                    x2 = event.getX();
+                    y2 = event.getY();
+                    float width = Math.abs(x2 - x1);
+                    float height = Math.abs(y2 - y1);
+                    float X = Math.min(x1,x2);
+                    float Y = Math.min(y1,y2);
+                    levelEditing.obst.getLayer().add(new obstacle((int) ((int)  X - cameraX), (int) ((int) Y - cameraY), (int) width, (int) height, BitmapFactory.decodeResource(getResources(),R.drawable.spike),50));
+                }
+                taps = (taps+1)%2;
+            }
+        }
+        //checkpoint
+        else if(partChosen[2]) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    x1 = event.getX();
+                    y1 = event.getY();
+                    float width = 100;
+                    float height = 200;
+                    float X = x1 - 50;
+                    float Y = y1 - 100;
+                    levelEditing.checkpoints.getLayer().add(new checkpoint((int) (X - cameraX), (int) (Y-cameraY), (int) width, (int) height,BitmapFactory.decodeResource(getResources(),R.drawable.checkpoint),false));
+                }
+        //finish line
+        } else if(partChosen[3]) {
+            if(event.getAction() == MotionEvent.ACTION_DOWN) {
                 x1 = event.getX();
                 y1 = event.getY();
+                float width = 100;
+                float height = 200;
+                float X = x1 - 50;
+                float Y = y1 - 100;
+                levelEditing.checkpoints.getLayer().add(new checkpoint((int) (X - cameraX), (int) (Y-cameraY), (int) width, (int) height,BitmapFactory.decodeResource(getResources(),R.drawable.checkpoint),true));
             }
-            if(taps == 1) {
-                x2 = event.getX();
-                y2 = event.getY();
-                float width = Math.abs(x2 - x1);
-                float height = Math.abs(y2 - y1);
-                float X = Math.min(x1,x2);
-                float Y = Math.min(y1,y2);
-                levelEditing.base.getLayer().add(new shape((int) ((int) X - cameraX), (int) ((int) Y - cameraY), (int) width, (int) height, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
+        //spawn point
+        } else if(partChosen[4]) {
+            if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                x1 = event.getX();
+                y1 = event.getY();
+                levelEditing.player.startX =(int) (x1 - cameraX);
+                levelEditing.player.startY = (int) (y1- cameraY);
             }
-            taps = (taps+1)%2;
         }
-        return super.onTouchEvent(event);
+    return super.onTouchEvent(event);
     }
 }

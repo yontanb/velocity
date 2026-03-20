@@ -84,9 +84,10 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
         }
         return true;
     }
-    
+
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+        editView.switchReset();
         if(item.getItemId() == R.id.save_level) {
             finish();
         }

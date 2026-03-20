@@ -5,6 +5,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Gainmap;
+import android.graphics.Rect;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -62,6 +64,8 @@ public class level {
         if (playerNeeded) {
             player.drawShape(canvas);
         }
+        shape spawn = new shape(player.startX,player.startY,20,20,BitmapFactory.decodeResource(context.getResources(),R.drawable.cell));
+        spawn.drawShape(canvas);
 
 
     }

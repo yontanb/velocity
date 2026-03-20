@@ -36,6 +36,8 @@ public class gameActivity extends levelholder implements View.OnTouchListener {
         goRight.setOnTouchListener(this);
         jump.setOnTouchListener(this);
         goLeft.setOnTouchListener(this);
+        //this is the death function but it just offsets to startX,startY, so don't worry
+        lvl.player.death();
     }
 
     @SuppressLint("ClickableViewAccessibility")
