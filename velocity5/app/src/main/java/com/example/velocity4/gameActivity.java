@@ -2,15 +2,12 @@ package com.example.velocity4;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import java.util.ArrayList;
-import java.util.Objects;
+
 
 public class gameActivity extends levelholder implements View.OnTouchListener {
     level lvl;
@@ -36,7 +33,7 @@ public class gameActivity extends levelholder implements View.OnTouchListener {
         goRight.setOnTouchListener(this);
         jump.setOnTouchListener(this);
         goLeft.setOnTouchListener(this);
-        //this is the death function but it just offsets to startX,startY, so don't worry
+        //note to self, this is the death function but it just offsets to startX,startY, so don't worry
         lvl.player.death();
     }
 

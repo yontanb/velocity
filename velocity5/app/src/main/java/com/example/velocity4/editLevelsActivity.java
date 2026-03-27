@@ -1,5 +1,6 @@
 package com.example.velocity4;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,14 +13,13 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 
-import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Objects;
 
 public class editLevelsActivity extends levelholder implements View.OnTouchListener, PopupMenu.OnMenuItemClickListener {
     editView editView;
     Button left,right,up,down,save;
-    Boolean isNewLvl = false;
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +45,7 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.edit_level_menu, menu); // Use your XML file name here
+        inflater.inflate(R.menu.edit_level_menu, menu);
         return true;
     }
         public boolean onTouch(View v, MotionEvent event) {
@@ -94,27 +94,32 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
         if(item.getItemId() == R.id.add_base) {
             resetValueForPartChosen();
             editView.partChosen[0] = true;
-            Log.d("part Adding", "part Chosen: base");
+            Log.d("Level Editor", "part Chosen: base");
         }
         if(item.getItemId() == R.id.add_obst) {
             resetValueForPartChosen();
             editView.partChosen[1] = true;
-            Log.d("part Adding", "part Chosen: obst");
+            Log.d("Level Editor", "part Chosen: obst");
         }
         if(item.getItemId() == R.id.add_checkpoint) {
             resetValueForPartChosen();
             editView.partChosen[2] = true;
-            Log.d("part Adding", "part Chosen: checkpoint");
+            Log.d("Level Editor", "part Chosen: checkpoint");
         }
         if(item.getItemId() == R.id.add_finish) {
             resetValueForPartChosen();
             editView.partChosen[3] = true;
-            Log.d("part Adding", "part Chosen: finishline");
+            Log.d("Level Editor", "part Chosen: finish line");
         }
         if(item.getItemId() == R.id.add_spawn) {
             resetValueForPartChosen();
             editView.partChosen[4] = true;
-            Log.d("part Adding", "part Chosen: spawn");
+            Log.d("Level Editor", "part Chosen: spawn");
+        }
+        if(item.getItemId() == R.id.deleter) {
+            resetValueForPartChosen();
+            editView.partChosen[5] = true;
+            Log.d("Level Editor", "delete mode chosen");
         }
         return true;
     }
@@ -124,5 +129,6 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
         editView.partChosen[2] = false;
         editView.partChosen[3] = false;
         editView.partChosen[4] = false;
+        editView.partChosen[5] = false;
     }
 }

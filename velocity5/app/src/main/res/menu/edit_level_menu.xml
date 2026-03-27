@@ -18,5 +18,8 @@
     <item
         android:id="@+id/add_spawn"
         android:title="choose spawn"/>
+    <item
+        android:id="@+id/deleter"
+        android:title="delete mode"/>
 
 </menu>

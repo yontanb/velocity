@@ -63,9 +63,11 @@ public class level {
         }
         if (playerNeeded) {
             player.drawShape(canvas);
+        } else {
+            shape spawn = new shape(player.startX,player.startY,20,20,BitmapFactory.decodeResource(context.getResources(),R.drawable.cell));
+            spawn.drawShape(canvas);
         }
-        shape spawn = new shape(player.startX,player.startY,20,20,BitmapFactory.decodeResource(context.getResources(),R.drawable.cell));
-        spawn.drawShape(canvas);
+
 
 
     }

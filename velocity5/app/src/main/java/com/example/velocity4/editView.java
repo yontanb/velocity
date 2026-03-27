@@ -30,12 +30,15 @@ public class editView extends View {
     [2] -> checkpoint
     [3] -> finish line
     [4] -> player spawn
+    [5] -> delete mode
      */
-    boolean[] partChosen = {false,false,false,false,false};
+    boolean[] partChosen = {false,false,false,false,false,false};
     public editView(Context context) {
         super(context);
         this.context = context;
         levelEditing = new level(new layer(new ArrayList<>()),new layer(new ArrayList<>()),new layer(new ArrayList<>()),context,false);
+
+
     }
     public editView(Context context, level level) {
         super(context);
@@ -98,7 +101,7 @@ public class editView extends View {
 
         }
         //obstacle
-        else if(partChosen[1]) {
+        else if (partChosen[1]) {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
                 float x2,y2;
                 if(taps == 0) {
@@ -118,7 +121,7 @@ public class editView extends View {
             }
         }
         //checkpoint
-        else if(partChosen[2]) {
+        else if (partChosen[2]) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     x1 = event.getX();
                     y1 = event.getY();
@@ -129,7 +132,7 @@ public class editView extends View {
                     levelEditing.checkpoints.getLayer().add(new checkpoint((int) (X - cameraX), (int) (Y-cameraY), (int) width, (int) height,BitmapFactory.decodeResource(getResources(),R.drawable.checkpoint),false));
                 }
         //finish line
-        } else if(partChosen[3]) {
+        } else if (partChosen[3]) {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
                 x1 = event.getX();
                 y1 = event.getY();
@@ -144,10 +147,36 @@ public class editView extends View {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
                 x1 = event.getX();
                 y1 = event.getY();
-                levelEditing.player.startX =(int) (x1 - cameraX);
-                levelEditing.player.startY = (int) (y1- cameraY);
+                levelEditing.player.startX = (int) (x1 - cameraX);
+                levelEditing.player.startY = (int) (y1 - cameraY);
+            }
+        } else if(partChosen[5]) {
+            if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                x1 = event.getX();
+                y1 = event.getY();
+                shape sToRemove = isInsidePart(x1,y1);
+                removePartFromLevel(sToRemove);
             }
         }
     return super.onTouchEvent(event);
+    }
+    ArrayList<shape> AllParts = new ArrayList<>();
+    private shape isInsidePart(float x, float y) {
+        AllParts.clear();
+        AllParts.addAll(levelEditing.base.getLayer());
+        AllParts.addAll(levelEditing.obst.getLayer());
+        AllParts.addAll(levelEditing.checkpoints.getLayer());
+        for(shape s : AllParts) {
+            if(s.isInside((int) x, (int) y)) {
+                return s;
+            }
+        }
+        return null;
+    }
+    private void removePartFromLevel(shape sToRemove) {
+        levelEditing.checkpoints.getLayer().remove(sToRemove);
+        levelEditing.obst.getLayer().remove(sToRemove);
+        levelEditing.base.getLayer().remove(sToRemove);
+
     }
 }
