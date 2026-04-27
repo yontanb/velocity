@@ -44,7 +44,6 @@ public class gameView extends View {
         float offsetY = playerY - screenCenterY;
         canvas.translate(-offsetX, -offsetY);;
         lvl.drawLevel(canvas);
-        invalidate();
         lvl.healthDisplay(context);
         player.gravity();
         if(ismovingright) {
@@ -64,6 +63,7 @@ public class gameView extends View {
 
         lvl.playerCollide();
         lvl.playerdeathcheck();
+        invalidate();
     }
     private void win() {
 

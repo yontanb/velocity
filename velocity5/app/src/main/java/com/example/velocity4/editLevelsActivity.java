@@ -48,7 +48,7 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
         inflater.inflate(R.menu.edit_level_menu, menu);
         return true;
     }
-        public boolean onTouch(View v, MotionEvent event) {
+    public boolean onTouch(View v, MotionEvent event) {
         if(v == left) {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
                 editView.cameraMovement[2] = true;
@@ -70,10 +70,12 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
             }
         }
         if(v == save) {
-            PopupMenu popup = new PopupMenu(this, v);
-            popup.getMenuInflater().inflate(R.menu.edit_level_menu, popup.getMenu());
-            popup.setOnMenuItemClickListener(this);
-            popup.show();
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                PopupMenu popup = new PopupMenu(this, v);
+                popup.getMenuInflater().inflate(R.menu.edit_level_menu, popup.getMenu());
+                popup.setOnMenuItemClickListener(this);
+                popup.show();
+            }
         }
 
         if(event.getAction() == MotionEvent.ACTION_UP) {

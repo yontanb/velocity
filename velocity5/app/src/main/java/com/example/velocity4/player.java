@@ -18,7 +18,6 @@ public class player extends shape {
 
     }
     public void win() {
-
     }
     boolean canUp = true , canRight = true , canLeft = true , canDown = true;
     public void moveLeft() {
