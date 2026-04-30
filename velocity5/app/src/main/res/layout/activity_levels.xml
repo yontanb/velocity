@@ -33,12 +33,13 @@
             />
 
     </LinearLayout>
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listLvls"
-        android:overScrollMode="always"
-        />
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listLvls"
+            android:overScrollMode="always"
+            />
+
 
 
 </LinearLayout>
