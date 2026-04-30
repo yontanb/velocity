@@ -62,20 +62,22 @@ public class gameActivity extends levelholder implements View.OnTouchListener {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
                 gameView.ismovingleft = true;
             }
+            if(event.getAction() == MotionEvent.ACTION_UP) {
+                gameView.ismovingleft = false;
+            }
         }
         if(v == goRight) {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
                 gameView.ismovingright = true;
+            }
+            if(event.getAction() == MotionEvent.ACTION_UP) {
+                gameView.ismovingright = false;
             }
         }
         if(v == jump) {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
                 lvl.getGamePlayer().dy = -60;
             }
-        }
-        if(event.getAction() == MotionEvent.ACTION_UP) {
-            gameView.ismovingright = false;
-            gameView.ismovingleft = false;
         }
         return true;
     }

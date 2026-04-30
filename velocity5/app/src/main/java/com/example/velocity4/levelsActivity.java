@@ -28,6 +28,13 @@ public class levelsActivity extends levelholder implements AdapterView.OnItemCli
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        leveldisplay = findViewById(R.id.listLvls);
+        leveldisplay.setAdapter(levelAdapter);
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, gameActivity.class);
         intent.putExtra("level",position);
