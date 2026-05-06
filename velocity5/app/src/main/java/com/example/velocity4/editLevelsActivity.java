@@ -13,21 +13,25 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class editLevelsActivity extends levelholder implements View.OnTouchListener, PopupMenu.OnMenuItemClickListener {
     editView editView;
     Button left,right,up,down,save;
-
+    FirebaseDatabase lvl_saver;
+    level level;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         if(intent.hasExtra("level")) {
-            level level = levels.get((Integer) intent.getExtras().get("level"));
+            level = levels.get((Integer) intent.getExtras().get("level"));
             editView = new editView(this, level);
         }
+        lvl_saver = FirebaseDatabase.getInstance();
         setContentView(R.layout.activity_edit_levels);
         RelativeLayout ui = findViewById(R.id.editlayout);
         ui.addView(editView, 0);
@@ -86,11 +90,11 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
         }
         return true;
     }
-
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         editView.switchReset();
         if(item.getItemId() == R.id.save_level) {
+            saveLvl();
             finish();
         }
         if(item.getItemId() == R.id.add_base) {
@@ -132,5 +136,9 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
         editView.partChosen[3] = false;
         editView.partChosen[4] = false;
         editView.partChosen[5] = false;
+    }
+    public void saveLvl() {
+
+        
     }
 }

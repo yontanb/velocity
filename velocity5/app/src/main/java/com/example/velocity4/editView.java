@@ -63,8 +63,9 @@ public class editView extends View {
     }
     @Override
     public void onDraw(@NonNull Canvas canvas) {
+//        grid(5,5,canvas);
         canvas.translate(cameraX,cameraY);
-        grid(5,5,canvas);
+        Griddots(canvas);
         if(levelEditing != null) {
             levelEditing.drawLevel(canvas);
         }
@@ -78,22 +79,37 @@ public class editView extends View {
         x1 = 0;
         y1 = 0;
     }
-    public  void grid(int lines, int collum, Canvas canvas)
-    {   Paint paint = new Paint();
-        paint.setColor(Color.BLUE);
-        paint.setStrokeWidth(5);
-        float dx = canvas.getWidth()/ collum;
-        float dy = canvas.getHeight()/lines;
-        float x =0 + cameraX , y = 0 + cameraY;
-        for(int l = 0 ; l < lines ; l++) {
-            canvas.drawLine(x,y, canvas.getWidth(),y,paint);
-            y += dy;
+//    private void Gridlines(Canvas canvas) {
+//        Paint line = new Paint();
+//        line.setColor(Color.LTGRAY);
+//        line.setStrokeWidth(5);
+//        float leftcorner = -cameraX;
+//        float topcorner = -cameraY;
+//        float startX = (float)Math.floor(leftcorner / 100) * 100;
+//        float startY = (float)Math.floor(topcorner / 100) * 100;
+//
+//        for (float x = startX; x <= leftcorner + getWidth(); x += 100) {
+//            canvas.drawLine(x, topcorner, x, topcorner + getHeight(), line);
+//        }
+//        for (float y = startY; y <= topcorner + getHeight(); y += 100) {
+//            canvas.drawLine(leftcorner, y, leftcorner + getWidth(), y, line);
+//        }
+//    }
+    private void Griddots(Canvas canvas) {
+        Paint line = new Paint();
+        line.setColor(Color.GRAY);
+        line.setStrokeWidth(10);
+        float leftcorner = -cameraX;
+        float topcorner = -cameraY;
+        float startX = (float)Math.floor(leftcorner / 100) * 100;
+        float startY = (float)Math.floor(topcorner / 100) * 100;
+
+        for (float x = startX; x <= leftcorner + getWidth(); x += 100) {
+            for (float y = startY; y <= topcorner + getHeight(); y += 100) {
+                canvas.drawPoint(x,y,line);
+            }
         }
-        y = 0 +cameraY;
-        for(int c = 0 ; c < collum ; c++) {
-            canvas.drawLine(x,y, x,canvas.getHeight(),paint);
-            x += dx;
-        }
+
     }
     @SuppressLint("ClickableViewAccessibility")
     @Override
