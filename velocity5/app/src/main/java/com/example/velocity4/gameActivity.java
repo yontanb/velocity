@@ -30,6 +30,7 @@ public class gameActivity extends levelholder implements View.OnTouchListener {
         if(intent.hasExtra("level")) {
             lvl = levels.get((int)intent.getExtras().get("level"));
             lvl.playerNeeded = true;
+            lvl.context = this;
         }
         assert lvl != null;
         gameView = new gameView(this, lvl);
@@ -51,6 +52,7 @@ public class gameActivity extends levelholder implements View.OnTouchListener {
                 return true;
             }
         });
+
         clockThread = new clockThread(handler);
         clockThread.start();
     }

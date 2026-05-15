@@ -12,6 +12,7 @@ public class layer {
         this.layer = layer;
 
     }
+    public layer() {}
 
     public ArrayList<shape> getLayer() {
         return layer;

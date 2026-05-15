@@ -63,7 +63,6 @@ public class editView extends View {
     }
     @Override
     public void onDraw(@NonNull Canvas canvas) {
-//        grid(5,5,canvas);
         canvas.translate(cameraX,cameraY);
         Griddots(canvas);
         if(levelEditing != null) {
@@ -79,26 +78,10 @@ public class editView extends View {
         x1 = 0;
         y1 = 0;
     }
-//    private void Gridlines(Canvas canvas) {
-//        Paint line = new Paint();
-//        line.setColor(Color.LTGRAY);
-//        line.setStrokeWidth(5);
-//        float leftcorner = -cameraX;
-//        float topcorner = -cameraY;
-//        float startX = (float)Math.floor(leftcorner / 100) * 100;
-//        float startY = (float)Math.floor(topcorner / 100) * 100;
-//
-//        for (float x = startX; x <= leftcorner + getWidth(); x += 100) {
-//            canvas.drawLine(x, topcorner, x, topcorner + getHeight(), line);
-//        }
-//        for (float y = startY; y <= topcorner + getHeight(); y += 100) {
-//            canvas.drawLine(leftcorner, y, leftcorner + getWidth(), y, line);
-//        }
-//    }
     private void Griddots(Canvas canvas) {
-        Paint line = new Paint();
-        line.setColor(Color.GRAY);
-        line.setStrokeWidth(10);
+        Paint paint = new Paint();
+        paint.setColor(Color.GRAY);
+        paint.setStrokeWidth(10);
         float leftcorner = -cameraX;
         float topcorner = -cameraY;
         float startX = (float)Math.floor(leftcorner / 100) * 100;
@@ -106,7 +89,7 @@ public class editView extends View {
 
         for (float x = startX; x <= leftcorner + getWidth(); x += 100) {
             for (float y = startY; y <= topcorner + getHeight(); y += 100) {
-                canvas.drawPoint(x,y,line);
+                canvas.drawPoint(x,y,paint);
             }
         }
 
@@ -130,7 +113,7 @@ public class editView extends View {
                     float height = Math.abs(y2 - y1);
                     float X = Math.min(x1,x2);
                     float Y = Math.min(y1,y2);
-                    levelEditing.base.getLayer().add(new shape((int) ((int) X - cameraX), (int) ((int) Y - cameraY), (int) width, (int) height, BitmapFactory.decodeResource(getResources(),R.drawable.base)));
+                    levelEditing.base.getLayer().add(new shape((int) ((int) X - cameraX), (int) ((int) Y - cameraY), (int) width, (int) height, "base",context));
                 }
                 taps = (taps+1)%2;
             }
@@ -151,7 +134,7 @@ public class editView extends View {
                     float height = Math.abs(y2 - y1);
                     float X = Math.min(x1,x2);
                     float Y = Math.min(y1,y2);
-                    levelEditing.obst.getLayer().add(new obstacle((int) ((int)  X - cameraX), (int) ((int) Y - cameraY), (int) width, (int) height, BitmapFactory.decodeResource(getResources(),R.drawable.spike),50));
+                    levelEditing.obst.getLayer().add(new obstacle((int) ((int)  X - cameraX), (int) ((int) Y - cameraY), (int) width, (int) height,"spike",context,50));
                 }
                 taps = (taps+1)%2;
             }
@@ -165,7 +148,7 @@ public class editView extends View {
                     float height = 200;
                     float X = x1 - 50;
                     float Y = y1 - 100;
-                    levelEditing.checkpoints.getLayer().add(new checkpoint((int) (X - cameraX), (int) (Y-cameraY), (int) width, (int) height,BitmapFactory.decodeResource(getResources(),R.drawable.checkpoint),false));
+                    levelEditing.checkpoints.getLayer().add(new checkpoint((int) (X - cameraX), (int) (Y-cameraY), (int) width, (int) height,"checkpoint",context,false));
                 }
         //finish line
         } else if (partChosen[3]) {
@@ -176,7 +159,7 @@ public class editView extends View {
                 float height = 200;
                 float X = x1 - 50;
                 float Y = y1 - 100;
-                levelEditing.checkpoints.getLayer().add(new checkpoint((int) (X - cameraX), (int) (Y-cameraY), (int) width, (int) height,BitmapFactory.decodeResource(getResources(),R.drawable.checkpoint),true));
+                levelEditing.checkpoints.getLayer().add(new checkpoint((int) (X - cameraX), (int) (Y-cameraY), (int) width, (int) height,"checkpoint",context,true));
             }
         //spawn point
         } else if(partChosen[4]) {

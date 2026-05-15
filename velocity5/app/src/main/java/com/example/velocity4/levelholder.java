@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class levelholder extends AppCompatActivity {
-    static ArrayList<level> levels = new ArrayList<level>();
+    static ArrayList<level> levels = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

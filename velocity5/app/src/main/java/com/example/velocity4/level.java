@@ -18,8 +18,7 @@ public class level {
     layer obst;
     layer checkpoints;
     player player;
-    Context context;
-    private ArrayList<shape> parts;
+    transient Context context;
     boolean playerNeeded;
     String levelname;
     public level(layer base, layer obst,layer checkpoints, Context context, boolean playerNeeded) {
@@ -28,9 +27,10 @@ public class level {
         this.obst = obst;
         this.checkpoints = checkpoints;
         this.playerNeeded = playerNeeded;
-        player = new player(300, 300, 100, 150, BitmapFactory.decodeResource(context.getResources(), R.drawable.ph2));
+        player = new player(300, 300, 100, 150, "ph2", context);
 
     }
+    public level() {}
     public layer getBase() {
         return base;
     }
@@ -48,10 +48,13 @@ public class level {
     }
 
 
-    public player getgameplayer() {
-        return player;
+    public layer getCheckpoints() {
+        return checkpoints;
     }
 
+    public player getPlayer() {
+        return player;
+    }
 
     public void drawLevel(Canvas canvas) {
         if (base != null)
@@ -64,7 +67,7 @@ public class level {
         if (playerNeeded) {
             player.drawShape(canvas);
         } else {
-            shape spawn = new shape(player.startX,player.startY,20,20,BitmapFactory.decodeResource(context.getResources(),R.drawable.cell));
+            shape spawn = new shape(player.startX,player.startY,20,20,"cell",context);
             spawn.drawShape(canvas);
         }
 
@@ -86,7 +89,7 @@ public class level {
         }
         return false;
     }
-    boolean damaged = false;
+     transient boolean damaged = false;
     public void playerdeathcheck() {
         for(shape s : obst.getLayer()) {
             if(s.collision(player)) {
@@ -102,9 +105,7 @@ public class level {
 
     public void playerCollide() {
         player.canLeft = player.canUp = player.canRight = player.canDown = true;
-        parts = new ArrayList<>(base.getLayer());
-        parts.addAll(obst.getLayer());
-        for (shape s : parts) {
+        for (shape s : base.layer) {
             if (player.collision(s)) {
                 direction dir = player.dirToOtherShape(s);
                 if (dir == direction.down) {

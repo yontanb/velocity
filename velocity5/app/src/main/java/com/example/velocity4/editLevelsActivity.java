@@ -13,8 +13,14 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class editLevelsActivity extends levelholder implements View.OnTouchListener, PopupMenu.OnMenuItemClickListener {
@@ -94,6 +100,7 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
     public boolean onMenuItemClick(MenuItem item) {
         editView.switchReset();
         if(item.getItemId() == R.id.save_level) {
+
             saveLvl();
             finish();
         }
@@ -137,8 +144,20 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
         editView.partChosen[4] = false;
         editView.partChosen[5] = false;
     }
+    public boolean levelReq() {
+        for(shape c : level.checkpoints.layer) {
+            if(c.isWinner())
+                return true;
+        }
+        return false;
+    }
     public void saveLvl() {
-
-        
+        DatabaseReference saver = lvl_saver.getReference("levelTest");
+        Map<String, Object> levelData = new HashMap<>();
+        levelData.put("base_layer",level.base);
+        levelData.put("obst_layer",level.obst);
+        levelData.put("checkpoints", level.checkpoints);
+        levelData.put("player", level.player);
+        saver.push().setValue(levelData);
     }
 }

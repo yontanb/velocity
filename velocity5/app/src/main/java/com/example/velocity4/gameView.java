@@ -25,7 +25,6 @@ public class gameView extends View {
     boolean ismovingleft, ismovingright;
     player player;
     Context context;
-    LocalTime startTime;
     public gameView(Context context, level lvl) {
         super(context);
         this.context = context;
@@ -33,16 +32,16 @@ public class gameView extends View {
         this.player = lvl.player;
         
     }
-    boolean notWon =true;
+    boolean notWon = true;
     @Override
     public void onDraw(@NonNull Canvas canvas) {
         float playerX = player.rect.centerX();
         float playerY = player.rect.centerY();
         float screenCenterX = getWidth()  / 2f;
         float screenCenterY = getHeight() / 2f;
-        float offsetX = playerX - screenCenterX;
-        float offsetY = playerY - screenCenterY;
-        canvas.translate(-offsetX, -offsetY);;
+        float offsetX = screenCenterX - playerX;
+        float offsetY = screenCenterY - playerY;
+        canvas.translate(offsetX,offsetY);
         lvl.drawLevel(canvas);
         lvl.healthDisplay(context);
         player.gravity();
