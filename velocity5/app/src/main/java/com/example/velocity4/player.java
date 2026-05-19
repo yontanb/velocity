@@ -13,9 +13,9 @@ public class player extends shape {
         startX = x;
         startY = y;
     }
-
     public player() {
         super();
+
     }
 
     public int getStartX() {
@@ -37,6 +37,7 @@ public class player extends shape {
     public void moveLeft() {
         if(canLeft) {
             rect.offset(-dx, 0);
+
         }
     }
     public void moveRight() {

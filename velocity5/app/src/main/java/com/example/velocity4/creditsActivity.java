@@ -19,7 +19,6 @@ public class creditsActivity extends AppCompatActivity implements View.OnClickLi
         back = findViewById(R.id.back);
         back.setOnClickListener(this);
     }
-
     @Override
     public void onClick(View v) {
         finish();

@@ -1,12 +1,10 @@
 package com.example.velocity4;
 
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -20,11 +18,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class levelsActivity extends levelholder implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class levelsActivity extends levelholder implements View.OnClickListener, OnDeleteListener {
     ListView leveldisplay;
     levelAdapter levelAdapter;
-    FirebaseDatabase loader = FirebaseDatabase.getInstance();
+    FirebaseDatabase db;
     Button addlvl;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,21 +31,27 @@ public class levelsActivity extends levelholder implements AdapterView.OnItemCli
         addlvl = findViewById(R.id.addlvlbtn);
         addlvl.setOnClickListener(this);
         levelAdapter = new levelAdapter(this,0,0,levels);
+        levelAdapter.setOnDeleteListener(this);
         leveldisplay = findViewById(R.id.listLvls);
         leveldisplay.setAdapter(levelAdapter);
-        leveldisplay.setOnItemClickListener(this);
+        db = FirebaseDatabase.getInstance();
+        context = this;
         loadingLvls();
     }
     public void loadingLvls() {
-        DatabaseReference ref = loader.getReference("levelTest");
+        DatabaseReference ref = db.getReference("levels");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 levels.clear();
+                levelMap.clear();
                 for(DataSnapshot child : snapshot.getChildren()) {
-                    level lvl = child.getValue(level.class);
-                    if(lvl != null) {
-                        levels.add(lvl);
+                    saveData data = child.getValue(saveData.class);
+                    if(data != null) {
+                        level level = data.levelSaved.dataToLevel(context);
+                        levels.add(level);
+                        levelMap.put(child.getKey(),level);
+                        level.id = child.getKey();
                     }
                 }
                 levelAdapter.notifyDataSetChanged();
@@ -54,7 +59,7 @@ public class levelsActivity extends levelholder implements AdapterView.OnItemCli
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("database error", error.getMessage());
+                Log.d("database error", error.getMessage(),error.toException());
             }
         });
     }
@@ -66,12 +71,6 @@ public class levelsActivity extends levelholder implements AdapterView.OnItemCli
         leveldisplay.setAdapter(levelAdapter);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this, gameActivity.class);
-        intent.putExtra("level",position);
-        startActivity(intent);
-    }
 
     @Override
     public void onClick(View v)
@@ -80,10 +79,23 @@ public class levelsActivity extends levelholder implements AdapterView.OnItemCli
             layer base = new layer(new ArrayList<>());
             layer obst = new layer(new ArrayList<>());
             layer chp = new layer(new ArrayList<>());
-            levels.add(new level(base, obst, chp, this, false));
+            level newLvl = new level(base,obst,chp,this,false);
+            DatabaseReference ref = db.getReference("levels").push();
+            newLvl.id = ref.getKey();
+            levels.add(newLvl);
+            levelMap.put(newLvl.id,newLvl);
             Intent intent = new Intent(this, editLevelsActivity.class);
-            intent.putExtra("level",levels.size()-1);
-            this.startActivity(intent);
+            intent.putExtra("level_id",newLvl.id);
+            startActivity(intent);
         }
+    }
+
+    @Override
+    public void OnDel(level L, int position) {
+        DatabaseReference ref = db.getReference("levels").child(L.id);
+        ref.removeValue();
+        levels.remove(position);
+        levelMap.remove(L.id);
+        levelAdapter.notifyDataSetChanged();
     }
 }

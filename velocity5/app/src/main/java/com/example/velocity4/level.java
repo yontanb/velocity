@@ -20,6 +20,7 @@ public class level {
     player player;
     transient Context context;
     boolean playerNeeded;
+    String id;
     String levelname;
     public level(layer base, layer obst,layer checkpoints, Context context, boolean playerNeeded) {
         this.context = context;
@@ -77,9 +78,6 @@ public class level {
     public void healthDisplay(Context context) {
         TextView tv = ((Activity) context).findViewById(R.id.health);
         tv.setText("health: " + player.health);
-    }
-    public player getGamePlayer() {
-        return player;
     }
     public boolean didWin() {
         for(shape s : checkpoints.getLayer()) {

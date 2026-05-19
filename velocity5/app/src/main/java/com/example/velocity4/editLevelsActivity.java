@@ -13,14 +13,9 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 
-import androidx.appcompat.app.AlertDialog;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class editLevelsActivity extends levelholder implements View.OnTouchListener, PopupMenu.OnMenuItemClickListener {
@@ -28,13 +23,16 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
     Button left,right,up,down,save;
     FirebaseDatabase lvl_saver;
     level level;
+    String id = "";
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        if(intent.hasExtra("level")) {
-            level = levels.get((Integer) intent.getExtras().get("level"));
+        if(intent.hasExtra("level_id")) {
+            id = intent.getStringExtra("level_id");
+            level = levelMap.get(id);
+            level.playerNeeded = false;
             editView = new editView(this, level);
         }
         lvl_saver = FirebaseDatabase.getInstance();
@@ -100,7 +98,6 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
     public boolean onMenuItemClick(MenuItem item) {
         editView.switchReset();
         if(item.getItemId() == R.id.save_level) {
-
             saveLvl();
             finish();
         }
@@ -152,12 +149,8 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
         return false;
     }
     public void saveLvl() {
-        DatabaseReference saver = lvl_saver.getReference("levelTest");
-        Map<String, Object> levelData = new HashMap<>();
-        levelData.put("base_layer",level.base);
-        levelData.put("obst_layer",level.obst);
-        levelData.put("checkpoints", level.checkpoints);
-        levelData.put("player", level.player);
-        saver.push().setValue(levelData);
+        DatabaseReference saver = lvl_saver.getReference("levels").child(id);
+        saveData savedata = new saveData(new levelData(level),0,0);
+        saver.setValue(savedata);
     }
 }

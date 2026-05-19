@@ -15,6 +15,10 @@ public class obstacle extends shape {
         super();
     }
 
+    public int getDamage() {
+        return damage;
+    }
+
     @Override
     public void damagePlayer(player player) {
         if(player.health - damage <= 0) {

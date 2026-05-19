@@ -196,6 +196,5 @@ public class editView extends View {
         levelEditing.checkpoints.getLayer().remove(sToRemove);
         levelEditing.obst.getLayer().remove(sToRemove);
         levelEditing.base.getLayer().remove(sToRemove);
-
     }
 }

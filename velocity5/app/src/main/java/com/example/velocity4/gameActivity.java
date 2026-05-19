@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+
 
 public class gameActivity extends levelholder implements View.OnTouchListener {
     level lvl;
@@ -26,9 +28,11 @@ public class gameActivity extends levelholder implements View.OnTouchListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
         Intent intent = getIntent();
-        if(intent.hasExtra("level")) {
-            lvl = levels.get((int)intent.getExtras().get("level"));
+        if(intent.hasExtra("level_id")) {
+            String id = intent.getStringExtra("level_id");
+            lvl = levelMap.get(id);
             lvl.playerNeeded = true;
             lvl.context = this;
         }
@@ -78,7 +82,7 @@ public class gameActivity extends levelholder implements View.OnTouchListener {
         }
         if(v == jump) {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                lvl.getGamePlayer().dy = -60;
+                lvl.player.dy = -60;
             }
         }
         return true;

@@ -9,11 +9,11 @@ import android.graphics.Rect;
 import com.google.firebase.database.Exclude;
 public class shape {
 
-    public transient Rect rect;
+    public  Rect rect;
 
-    public transient Bitmap bitmap;
+    public Bitmap bitmap;
 
-    public transient Context context;
+    public  Context context;
     public String texture;
     public int x, y, width, height;
     public shape(int x, int y, int width, int height, String texture, Context context) {
@@ -31,21 +31,7 @@ public class shape {
         return texture;
     }
 
-    public int getX() {
-        return x;
-    }
 
-    public int getY() {
-        return y;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
 
     public shape() {}
     public void setRect(Rect rect) {
@@ -87,6 +73,7 @@ public class shape {
             }
         }
     }
+    @Exclude
     public boolean isWinner() {
         return false;
     }

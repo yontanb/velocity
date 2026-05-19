@@ -9,9 +9,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class levelholder extends AppCompatActivity {
     static ArrayList<level> levels = new ArrayList<>();
+    static Map<String,level> levelMap = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

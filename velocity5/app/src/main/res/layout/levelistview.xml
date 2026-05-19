@@ -25,6 +25,15 @@
         android:text="edit level"
         android:layout_margin="10dp"
         android:backgroundTint="@color/blue"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/delbtn"
+        android:layout_toRightOf="@id/editbtn"
+        android:layout_alignParentBottom="true"
+        android:text="delete level"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/red"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
