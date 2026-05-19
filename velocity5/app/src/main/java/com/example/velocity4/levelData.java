@@ -1,7 +1,6 @@
 package com.example.velocity4;
 
 import android.content.Context;
-import android.graphics.drawable.shapes.Shape;
 
 import java.util.ArrayList;
 
@@ -26,7 +25,7 @@ public class levelData {
         }
         this.startX = L.player.startX;
         this.startY = L.player.startY;
-        this.levelName = L.levelname;
+        this.levelName = L.levelName;
     }
     public levelData() {}
 
@@ -48,6 +47,10 @@ public class levelData {
 
     public int getStartY() {
         return startY;
+    }
+
+    public String getLevelName() {
+        return levelName;
     }
 
     public level dataToLevel(Context context) {
@@ -72,7 +75,7 @@ public class levelData {
         level level = new level(base1,obst1,checkpoints1,context,true);
         level.player.startX = this.startX;
         level.player.startY = this.startY;
-        level.levelname = this.levelName;
+        level.levelName = this.levelName;
         return level;
     }
 }

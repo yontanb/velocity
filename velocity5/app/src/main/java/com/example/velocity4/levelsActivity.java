@@ -67,10 +67,8 @@ public class levelsActivity extends levelholder implements View.OnClickListener,
     @Override
     protected void onResume() {
         super.onResume();
-        leveldisplay = findViewById(R.id.listLvls);
-        leveldisplay.setAdapter(levelAdapter);
+        loadingLvls();
     }
-
 
     @Override
     public void onClick(View v)

@@ -90,7 +90,6 @@ public class gameView extends View {
 
     }
     private void win() {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("you beat the level!");
         builder.setMessage("try again?");

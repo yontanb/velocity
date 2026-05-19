@@ -2,16 +2,8 @@ package com.example.velocity4;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Gainmap;
-import android.graphics.Rect;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 
 public class level {
     layer base;
@@ -21,7 +13,7 @@ public class level {
     transient Context context;
     boolean playerNeeded;
     String id;
-    String levelname;
+    String levelName;
     public level(layer base, layer obst,layer checkpoints, Context context, boolean playerNeeded) {
         this.context = context;
         this.base = base;
@@ -56,6 +48,7 @@ public class level {
     public player getPlayer() {
         return player;
     }
+
 
     public void drawLevel(Canvas canvas) {
         if (base != null)

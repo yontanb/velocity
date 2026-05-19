@@ -98,6 +98,7 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
     public boolean onMenuItemClick(MenuItem item) {
         editView.switchReset();
         if(item.getItemId() == R.id.save_level) {
+            level.levelName = "black nigga";
             saveLvl();
             finish();
         }

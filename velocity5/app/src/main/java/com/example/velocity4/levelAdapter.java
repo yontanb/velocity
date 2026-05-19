@@ -3,8 +3,6 @@ package com.example.velocity4;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +37,7 @@ public class levelAdapter extends ArrayAdapter<level> {
         TextView bestTime = view.findViewById(R.id.best_Time);
         TextView lastTime = view.findViewById(R.id.last_Time);
         level level = objects.get(position);
-        levelname.setText(level.levelname);
+        levelname.setText("level: " + level.levelName);
         bestTime.setText(bestTime.getText() + "25");
         lastTime.setText(lastTime.getText() + "25");
         Button play = view.findViewById(R.id.startBtn);

@@ -49,12 +49,9 @@ public class gameActivity extends levelholder implements View.OnTouchListener {
         goLeft.setOnTouchListener(this);
         //note to self, this is the death function but it just offsets to startX,startY, so don't worry
         lvl.player.death();
-        handler = new Handler(new Handler.Callback() {
-            @Override
-            public boolean handleMessage(@NonNull Message msg) {
-                timer.setText("time: " + msg.arg1);
-                return true;
-            }
+        handler = new Handler(msg -> {
+            timer.setText("time: " + msg.arg1);
+            return true;
         });
 
         clockThread = new clockThread(handler);
