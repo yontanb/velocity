@@ -113,7 +113,8 @@ public class editView extends View {
                     float height = Math.abs(y2 - y1);
                     float X = Math.min(x1,x2);
                     float Y = Math.min(y1,y2);
-                    levelEditing.base.getLayer().add(new shape((int) ((int) X - cameraX), (int) ((int) Y - cameraY), (int) width, (int) height, "base",context));
+                    shape base = new shape((int) ((int) X - cameraX), (int) ((int) Y - cameraY), (int) width, (int) height, "base",context);
+                    levelEditing.base.getLayer().add(base);
                 }
                 taps = (taps+1)%2;
             }
@@ -134,7 +135,8 @@ public class editView extends View {
                     float height = Math.abs(y2 - y1);
                     float X = Math.min(x1,x2);
                     float Y = Math.min(y1,y2);
-                    levelEditing.obst.getLayer().add(new obstacle((int) ((int)  X - cameraX), (int) ((int) Y - cameraY), (int) width, (int) height,"spike",context,50));
+                    obstacle obst = new obstacle((int) ((int)  X - cameraX), (int) ((int) Y - cameraY), (int) width, (int) height,"spike",context,50);
+                    levelEditing.obst.getLayer().add(obst);
                 }
                 taps = (taps+1)%2;
             }
@@ -144,22 +146,24 @@ public class editView extends View {
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     x1 = event.getX();
                     y1 = event.getY();
-                    float width = 100;
+                    float width = 200;
                     float height = 200;
-                    float X = x1 - 50;
-                    float Y = y1 - 100;
-                    levelEditing.checkpoints.getLayer().add(new checkpoint((int) (X - cameraX), (int) (Y-cameraY), (int) width, (int) height,"checkpoint",context,false));
+                    float X = x1 - width/2;
+                    float Y = y1 - height/2;
+                    checkpoint checkpoint = new checkpoint((int) (X - cameraX), (int) (Y-cameraY), (int) width, (int) height,"checkpoint1",context,false);
+                    levelEditing.checkpoints.getLayer().add(checkpoint);
                 }
         //finish line
         } else if (partChosen[3]) {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
                 x1 = event.getX();
                 y1 = event.getY();
-                float width = 100;
+                float width = 200;
                 float height = 200;
-                float X = x1 - 50;
-                float Y = y1 - 100;
-                levelEditing.checkpoints.getLayer().add(new checkpoint((int) (X - cameraX), (int) (Y-cameraY), (int) width, (int) height,"checkpoint",context,true));
+                float X = x1 - width/2;
+                float Y = y1 - height/2;
+                checkpoint finishline = new checkpoint((int) (X - cameraX), (int) (Y-cameraY), (int) width, (int) height,"finishline",context,true);
+                levelEditing.checkpoints.getLayer().add(finishline);
             }
         //spawn point
         } else if(partChosen[4]) {
@@ -173,7 +177,7 @@ public class editView extends View {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
                 x1 = event.getX();
                 y1 = event.getY();
-                shape sToRemove = isInsidePart(x1,y1);
+                shape sToRemove = isInsidePart(x1-cameraX,y1-cameraY);
                 removePartFromLevel(sToRemove);
             }
         }

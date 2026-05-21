@@ -14,7 +14,7 @@
         android:title="add a checkpoint"/>
     <item
         android:id="@+id/add_finish"
-        android:title="choose finish"/>
+        android:title="add a finishLine"/>
     <item
         android:id="@+id/add_spawn"
         android:title="choose spawn"/>

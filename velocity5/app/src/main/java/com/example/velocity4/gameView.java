@@ -37,6 +37,8 @@ public class gameView extends View {
     boolean notWon = true;
     float offsetX;
     float offsetY;
+    boolean isAir = false;
+    float startAir = 0;
     @Override
     public void onDraw(@NonNull Canvas canvas) {
         float playerX = player.rect.centerX();
@@ -45,20 +47,28 @@ public class gameView extends View {
         float screenCenterY = getHeight() / 2f;
         float offsetX = screenCenterX - playerX;
         float offsetY = screenCenterY - playerY;
+//        Griddots(canvas);
         canvas.translate(offsetX,offsetY);
-        Griddots(canvas);
         lvl.drawLevel(canvas);
         lvl.healthDisplay(context);
-//        long now = System.nanoTime();
-//        float dt = (now - lastTime) / 1_000_000_000f;
-//        lastTime = now;
-//        player.dt = dt;
         player.gravity();
         if(ismovingright) {
             player.moveRight();
         }
         if(ismovingleft) {
             player.moveLeft();
+        }
+        if(!player.isOnground) {
+            if(!isAir) {
+                isAir = true;
+                startAir = System.currentTimeMillis();
+            }
+            float timeInAir = System.currentTimeMillis()- startAir;
+            if(timeInAir > 5000) {
+                player.death();
+            }
+        } else {
+            isAir = false;
         }
         if(player.health == 0) {
             player.death();
@@ -77,14 +87,14 @@ public class gameView extends View {
         Paint paint = new Paint();
         paint.setColor(Color.GRAY);
         paint.setStrokeWidth(10);
-        float leftcorner = - offsetX;
+        float leftcorner = -offsetX;
         float topcorner = -offsetY;
         float startX = (float)Math.floor(leftcorner / 100) * 100;
         float startY = (float)Math.floor(topcorner / 100) * 100;
 
         for (float x = startX; x <= leftcorner + getWidth(); x += 100) {
             for (float y = startY; y <= topcorner + getHeight(); y += 100) {
-                canvas.drawPoint(x,y,paint);
+                canvas.drawPoint(x + offsetX,y + offsetY,paint);
             }
         }
 
@@ -100,18 +110,6 @@ public class gameView extends View {
         dialog.show();
 
     }
-//    private void GameOver() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//
-//        builder.setTitle("Game over");
-//        builder.setMessage("try again");
-//        builder.setCancelable(false);
-//        builder.setPositiveButton("restart", new HandleAlertDialogClickListener());
-//        builder.setNegativeButton("go to title screen", new HandleAlertDialogClickListener());
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-//    }
-
     private class HandleAlertDialogClickListener implements DialogInterface.OnClickListener
     {
         @Override

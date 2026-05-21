@@ -18,16 +18,17 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends levelholder implements View.OnClickListener {
-    Button btn;
-    TextView credits;
+    Button btn,credits,quit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btn = findViewById(R.id.startbtn);
         credits = findViewById(R.id.credits);
+        quit = findViewById(R.id.quit);
         btn.setOnClickListener(this);
         credits.setOnClickListener(this);
+        quit.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
@@ -38,6 +39,9 @@ public class MainActivity extends levelholder implements View.OnClickListener {
         if(v == credits) {
             Intent intent = new Intent(this, creditsActivity.class);
             startActivity(intent);
+        }
+        if(v == quit) {
+            finishAffinity();
         }
     }
 }

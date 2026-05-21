@@ -45,12 +45,12 @@ public class player extends shape {
             rect.offset(dx, 0);
     }
     int grav = 3;
+    boolean isOnground;
     public void gravity() {
         if((canDown && dy > 0) || (canUp && dy < 0)) {
             rect.offset(0,dy);
         } else {
             dy = 0;
-
         }
         if(dy > 60) {
             dy = 60;

@@ -33,7 +33,6 @@ public class checkpoint extends shape
 
     @Override
     public void gotCheckpoint(player player) {
-        Log.d("checkpointTest","got it!");
         if(winner)
             player.win();
         else {

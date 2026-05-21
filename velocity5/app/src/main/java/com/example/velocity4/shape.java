@@ -43,7 +43,6 @@ public class shape {
     public void drawShape(Canvas canvas) {
         if(bitmap == null) return;
         canvas.drawBitmap(bitmap,null,rect,null);
-
     }
     public boolean isInside(int x,int y)
     {
@@ -77,6 +76,7 @@ public class shape {
     public boolean isWinner() {
         return false;
     }
+    // for overrides for subclasses
     public void gotCheckpoint(player player) {}
     public void damagePlayer(player player) {}
     @SuppressLint("DiscouragedApi")

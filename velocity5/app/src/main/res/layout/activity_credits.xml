@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:background="@drawable/background">
+    android:background="@drawable/background2">
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,13 +23,24 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="made by: Yonatan Berler"
+        android:text="game inspired by VEX"
+        android:layout_gravity="center"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:id="@+id/title"
+        android:fontFamily="serif-monospace"
+        android:layout_below="@id/title1"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="game made by: Yonatan Berler"
         android:layout_gravity="center"
         android:textSize="20sp"
         android:textColor="@color/white"
         android:id="@+id/title2"
         android:fontFamily="serif-monospace"
-        android:layout_below="@id/title1"
+        android:layout_below="@id/title"
         android:layout_centerHorizontal="true"/>
     <TextView
         android:layout_width="wrap_content"
@@ -41,6 +52,39 @@
         android:textColor="@color/white"
         android:fontFamily="serif-monospace"
         android:layout_below="@id/title2"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="level editor by: Yonatan Berler"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:id="@+id/title4"
+        android:textColor="@color/white"
+        android:fontFamily="serif-monospace"
+        android:layout_below="@id/title3"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="level designs by: Yonatan Berler"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:id="@+id/title5"
+        android:textColor="@color/white"
+        android:fontFamily="serif-monospace"
+        android:layout_below="@id/title4"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" made in Android Studio Narwhal 2025.1.1"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:id="@+id/title6"
+        android:textColor="@color/white"
+        android:fontFamily="serif-monospace"
+        android:layout_below="@id/title5"
         android:layout_centerHorizontal="true"/>
     <Button
         android:layout_width="wrap_content"

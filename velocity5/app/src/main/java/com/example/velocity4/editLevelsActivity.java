@@ -10,8 +10,12 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -20,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class editLevelsActivity extends levelholder implements View.OnTouchListener, PopupMenu.OnMenuItemClickListener {
     editView editView;
-    Button left,right,up,down,save;
+    Button left,right,up,down, menu,quit;
     FirebaseDatabase lvl_saver;
     level level;
     String id = "";
@@ -43,12 +47,14 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
         right = findViewById(R.id.btnRight);
         up = findViewById(R.id.btnUp);
         down = findViewById(R.id.btnDown);
-        save = findViewById(R.id.saveBtn);
-        save.setOnTouchListener(this);
+        menu = findViewById(R.id.menuBtn);
+        quit = findViewById(R.id.btnquit);
+        menu.setOnTouchListener(this);
         left.setOnTouchListener(this);
         right.setOnTouchListener(this);
         up.setOnTouchListener(this);
         down.setOnTouchListener(this);
+        quit.setOnTouchListener(this);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -77,12 +83,17 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
                 editView.cameraMovement[1] = true;
             }
         }
-        if(v == save) {
+        if(v == menu) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 PopupMenu popup = new PopupMenu(this, v);
                 popup.getMenuInflater().inflate(R.menu.edit_level_menu, popup.getMenu());
                 popup.setOnMenuItemClickListener(this);
                 popup.show();
+            }
+        }
+        if(v == quit) {
+            if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                finish();
             }
         }
 
@@ -98,9 +109,7 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
     public boolean onMenuItemClick(MenuItem item) {
         editView.switchReset();
         if(item.getItemId() == R.id.save_level) {
-            level.levelName = "black nigga";
-            saveLvl();
-            finish();
+            finishlevel();
         }
         if(item.getItemId() == R.id.add_base) {
             resetValueForPartChosen();
@@ -147,7 +156,25 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
             if(c.isWinner())
                 return true;
         }
+        Toast.makeText(this,"not valid level, no end",Toast.LENGTH_LONG).show();
         return false;
+    }
+    public void finishlevel() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        EditText et = new EditText(this);
+        et.setHint("enter level name");
+        builder.setView(et);
+        builder.setPositiveButton("save level",(dialog, which) -> {
+            if(levelReq()) {
+                level.levelName = et.getText().toString();
+                saveLvl();
+                finish();
+            }
+        });
+        builder.setNegativeButton("cancel",(dialog, which) -> {
+            dialog.cancel();
+        });
+        builder.show();
     }
     public void saveLvl() {
         DatabaseReference saver = lvl_saver.getReference("levels").child(id);

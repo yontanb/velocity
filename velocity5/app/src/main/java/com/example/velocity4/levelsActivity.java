@@ -22,13 +22,15 @@ public class levelsActivity extends levelholder implements View.OnClickListener,
     ListView leveldisplay;
     levelAdapter levelAdapter;
     FirebaseDatabase db;
-    Button addlvl;
+    Button addlvl,goback;
     Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_levels);
         addlvl = findViewById(R.id.addlvlbtn);
+        goback = findViewById(R.id.gobackbtn);
+        goback.setOnClickListener(this);
         addlvl.setOnClickListener(this);
         levelAdapter = new levelAdapter(this,0,0,levels);
         levelAdapter.setOnDeleteListener(this);
@@ -85,6 +87,9 @@ public class levelsActivity extends levelholder implements View.OnClickListener,
             Intent intent = new Intent(this, editLevelsActivity.class);
             intent.putExtra("level_id",newLvl.id);
             startActivity(intent);
+        }
+        if(v == goback) {
+            finish();
         }
     }
 
