@@ -4,18 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 
 import java.sql.Time;
 import java.time.Instant;
@@ -24,17 +19,16 @@ import java.util.ArrayList;
 
 public class gameView extends View {
     level lvl;
-    boolean ismovingleft, ismovingright;
+    boolean ismovingleft, ismovingright, notWon = true;
     player player;
     Context context;
+    int spawnX, spawnY;
     public gameView(Context context, level lvl) {
         super(context);
         this.context = context;
         this.lvl = lvl;
         this.player = lvl.player;
-        
     }
-    boolean notWon = true;
     float offsetX;
     float offsetY;
     boolean isAir = false;
@@ -58,18 +52,7 @@ public class gameView extends View {
         if(ismovingleft) {
             player.moveLeft();
         }
-        if(!player.isOnground) {
-            if(!isAir) {
-                isAir = true;
-                startAir = System.currentTimeMillis();
-            }
-            float timeInAir = System.currentTimeMillis()- startAir;
-            if(timeInAir > 5000) {
-                player.death();
-            }
-        } else {
-            isAir = false;
-        }
+        //checks death
         if(player.health == 0) {
             player.death();
             player.health = 100;
@@ -78,9 +61,9 @@ public class gameView extends View {
             notWon = false;
             win();
         }
-
+        lvl.gotCheckpoint();
         lvl.playerCollide();
-        lvl.playerdeathcheck();
+        lvl.playerdamage();
         invalidate();
     }
     private void Griddots(Canvas canvas) {
@@ -97,35 +80,12 @@ public class gameView extends View {
                 canvas.drawPoint(x + offsetX,y + offsetY,paint);
             }
         }
-
     }
+    OnWinListener onWinListener;
     private void win() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("you beat the level!");
-        builder.setMessage("try again?");
-        builder.setCancelable(false);
-        builder.setPositiveButton("restart?", new HandleAlertDialogClickListener());
-        builder.setNegativeButton("go to title screen", new HandleAlertDialogClickListener());
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
+        onWinListener.OnWin();
     }
-    private class HandleAlertDialogClickListener implements DialogInterface.OnClickListener
-    {
-        @Override
-        public void onClick(DialogInterface dialog, int which)
-        {
-            String msg =  "" + which;
-            Log.d("dialog",msg);
-            if(which == -1 ) {
-                player.death();
-                notWon = true;
-            }
-            if(which == -2) {
-                ((Activity) context).finish();
-            }
-        }
+    public void setOnWinListener(OnWinListener onWinListener) {
+        this.onWinListener = onWinListener;
     }
-
-
 }

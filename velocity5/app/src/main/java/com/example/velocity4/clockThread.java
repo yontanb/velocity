@@ -4,36 +4,49 @@ import android.os.Handler;
 import android.os.Message;
 
 public class clockThread extends Thread {
-    int timer;
-
+    long timepassed;
+    long timepaused;
+    long whenPaused;
     Handler handler;
     private boolean pause;
+    boolean running;
     public clockThread(Handler handler)
     {
+        running = true;
         this.handler=handler;
-        this.timer = 0;
+        this.timepassed = 0;
+        this.timepaused = 0;
     }
     @Override
     public void run()
     {
+        long timeStart = System.currentTimeMillis();
         super.run();
 
-        while(true)
+        while(running)
         {
             if(!pause)
-            {   Message msg = new Message();
-                msg.arg1 = timer;
-                timer++;
-                handler.sendMessage(msg);
-                try
+            {
+                if(whenPaused != 0 )
                 {
-                    Thread.sleep(1000);
-                }
-                catch (InterruptedException e)
-                {
-                    e.printStackTrace();
+                    timepaused += System.currentTimeMillis() - whenPaused;
+                    whenPaused = 0;
                 }
 
+                timepassed = System.currentTimeMillis() - timeStart - timepaused;
+
+            } else
+            {
+                whenPaused = System.currentTimeMillis();
+            }
+            Message msg = handler.obtainMessage();
+            msg.obj = timepassed;
+            handler.sendMessage(msg);
+            try
+            {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                break;
             }
         }
     }
@@ -44,5 +57,12 @@ public class clockThread extends Thread {
     public boolean getPause()
     {
         return pause;
+    }
+    public long getTimepassed() {
+        return timepassed;
+    }
+    public void stoptimer() {
+        running = false;
+        interrupt();
     }
 }

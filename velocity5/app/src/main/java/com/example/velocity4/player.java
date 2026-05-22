@@ -25,9 +25,12 @@ public class player extends shape {
     public int getStartY() {
         return startY;
     }
-
+    public void setSpawn(int x, int y) {
+        this.startX = x;
+        this.startY = y;
+    }
     public void death() {
-
+            health = 100;
             rect.offsetTo(startX, startY);
 
     }

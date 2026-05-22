@@ -2,10 +2,10 @@ package com.example.velocity4;
 
 public class saveData {
     levelData levelSaved;
-    int bestTime;
-    int lastTime;
+    String bestTime;
+    String lastTime;
 
-    public saveData(levelData levelSaved, int bestTime, int lastTime) {
+    public saveData(levelData levelSaved, String bestTime, String lastTime) {
         this.levelSaved = levelSaved;
         this.bestTime = bestTime;
         this.lastTime = lastTime;
@@ -17,11 +17,11 @@ public class saveData {
         return levelSaved;
     }
 
-    public int getBestTime() {
+    public String getBestTime() {
         return bestTime;
     }
 
-    public int getLastTime() {
+    public String getLastTime() {
         return lastTime;
     }
 }

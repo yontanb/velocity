@@ -36,9 +36,7 @@ public class checkpoint extends shape
         if(winner)
             player.win();
         else {
-            player.startX = checkpointX;
-            player.startY = checkpointY;
+            player.setSpawn(checkpointX,checkpointY);
         }
     }
-
 }

@@ -94,19 +94,28 @@ public class level {
         return false;
     }
      transient boolean damaged = false;
-    public void playerdeathcheck() {
+    public void playerdamage() {
+        boolean hascollided = false;
         for(shape s : obst.getLayer()) {
             if(s.collision(player)) {
-                if(!damaged)
+                hascollided = true;
+                if(!damaged) {
                     s.damagePlayer(player);
-
-                damaged = true;
-            } else {
-                damaged = false;
+                    damaged = true;
+                }
+            }
+        }
+        if(!hascollided) {
+            damaged = false;
+        }
+    }
+    public void gotCheckpoint() {
+        for(shape s: checkpoints.layer) {
+            if(player.collision(s)) {
+                s.gotCheckpoint(player);
             }
         }
     }
-
     public boolean playerCollide() {
         player.canLeft = player.canUp = player.canRight = player.canDown = true;
         for (shape s : base.layer) {
