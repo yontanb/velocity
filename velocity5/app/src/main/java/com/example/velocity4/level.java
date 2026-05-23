@@ -16,6 +16,8 @@ public class level {
     transient Context context;
     boolean playerNeeded;
     String id;
+    long besttime;
+    long lasttime;
     String levelName;
     public level(layer base, layer obst,layer checkpoints, Context context, boolean playerNeeded) {
         this.context = context;

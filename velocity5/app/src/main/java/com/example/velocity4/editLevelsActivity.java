@@ -179,7 +179,7 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
     }
     public void saveLvl() {
         DatabaseReference saver = lvl_saver.getReference("levels").child(id);
-        saveData savedata = new saveData(new levelData(level),"","");
+        saveData savedata = new saveData(new levelData(level),0,0);
         saver.setValue(savedata);
     }
 }

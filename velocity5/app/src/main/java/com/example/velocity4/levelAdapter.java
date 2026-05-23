@@ -1,5 +1,6 @@
 package com.example.velocity4;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -19,8 +20,6 @@ import java.util.List;
 public class levelAdapter extends ArrayAdapter<level> {
     ArrayList<level> objects;
     Context context;
-//    int bestTime;
-//    int lastTime;
     OnDeleteListener deleteListener;
     public levelAdapter(@NonNull Context context, int resource, int textViewResourceId, @NonNull List<level> objects) {
         super(context, resource, textViewResourceId, objects);
@@ -40,9 +39,9 @@ public class levelAdapter extends ArrayAdapter<level> {
         level level = objects.get(position);
         levelname.setText("level: " + level.levelName);
         levelname.setTextColor(Color.WHITE);
-        bestTime.setText(bestTime.getText() + "25");
+        bestTime.setText(String.format("%s %s",bestTime.getText(),formatTime(level.besttime)));
         bestTime.setTextColor(Color.WHITE);
-        lastTime.setText(lastTime.getText() + "25");
+        lastTime.setText(String.format("%s %s",lastTime.getText(),formatTime(level.lasttime)));
         lastTime.setTextColor(Color.WHITE);
         Button play = view.findViewById(R.id.startBtn);
         Button edit = view.findViewById(R.id.editbtn);
@@ -63,5 +62,9 @@ public class levelAdapter extends ArrayAdapter<level> {
         Intent intent = new Intent(context, editLevelsActivity.class);
         intent.putExtra("level_id",objects.get(position).id);
         context.startActivity(intent);
+    }
+    @SuppressLint("DefaultLocale")
+    public String formatTime(long time) {
+        return String.format("%d:%02d:%03d",time/60000,(time/1000)%60,time%1000);
     }
 }

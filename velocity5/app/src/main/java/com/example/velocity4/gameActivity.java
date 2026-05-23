@@ -15,57 +15,80 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 
 public class gameActivity extends levelholder implements View.OnTouchListener, OnWinListener {
     level lvl;
-    Button goLeft, goRight, jump;
+    gameView gameView;
+    int spawnX, spawnY;
+
+    Button goLeft, goRight, jump, pause;
     TextView timer;
-    private gameView gameView;
+
     clockThread clockThread;
     Handler handler;
-    String id;
-    int spawnX, spawnY;
     String timeFormat;
+    long time;
+
+    FirebaseDatabase db;
+    String id;
 
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        db = FirebaseDatabase.getInstance();
         Intent intent = getIntent();
         if (intent.hasExtra("level_id")) {
             id = intent.getStringExtra("level_id");
             lvl = levelMap.get(id);
-            lvl.playerNeeded = true;
-            lvl.context = this;
-            spawnX = lvl.player.startX;
-            spawnY = lvl.player.startY;
+            if (lvl != null) {
+                lvl.playerNeeded = true;
+                lvl.context = this;
+                spawnX = lvl.player.startX;
+                spawnY = lvl.player.startY;
+            }
         }
-        assert lvl != null;
+
         gameView = new gameView(this, lvl);
         RelativeLayout relativeLayout = findViewById(R.id.gamelayout);
         relativeLayout.addView(gameView, 0);
+
         goLeft = findViewById(R.id.goLeft);
         goRight = findViewById(R.id.goRight);
         jump = findViewById(R.id.jump);
+        pause = findViewById(R.id.pauseBtn);
         timer = findViewById(R.id.time);
+
+        goLeft.setOnTouchListener(this);
         goRight.setOnTouchListener(this);
         jump.setOnTouchListener(this);
-        goLeft.setOnTouchListener(this);
+        pause.setOnTouchListener(this);
         gameView.setOnWinListener(this);
-        //note to self, this is the death function but it just offsets to startX,startY, so don't worry
+        //note to self: this just resets the player location for the level start
         lvl.player.death();
+
         handler = new Handler(msg -> {
-            long time =(long) msg.obj;
-            long timeMinutes = time/60000;
-            long timeSecond = time/1000;
-            long timemills = time % 1000;
-            timeFormat =  String.format("%d:%02d:%03d",timeMinutes,timeSecond,timemills);
-            timer.setText("time: " + timeFormat);
+            if(gameView.notWon) {
+                time = (long) msg.obj;
+                long minutes = time / 60000;
+                long seconds = (time / 1000) % 60;
+                long millis = time % 1000;
+                timeFormat = String.format("%d:%02d:%03d", minutes, seconds, millis);
+                timer.setText("time: " + timeFormat);
+            }
             return true;
         });
+
         clockThread = new clockThread(handler);
         clockThread.start();
     }
@@ -94,29 +117,75 @@ public class gameActivity extends levelholder implements View.OnTouchListener, O
                 lvl.player.dy = -60;
             }
         }
+        if(v == pause) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                clockThread.togglePause();
+                gameView.togglePause();
+//                pauseDialog();
+            }
+        }
         return true;
     }
+    public void pauseDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("level pause");
+        builder.setMessage("return to main menu?");
+        builder.setCancelable(false);
 
+        builder.setPositiveButton("continue", (dialog, which) -> {
+            clockThread.togglePause();
+            gameView.togglePause();
+        });
+        builder.setNegativeButton("go to levels screen", (dialog, which) -> {
+            clockThread.stopTimer();
+            clockThread = null;
+            finish();
+        });
+        builder.show();
+    }
     @Override
     public void OnWin() {
-        clockThread.stoptimer();
+        clockThread.stopTimer();
+        clockThread = null;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("you won the level!");
-        builder.setMessage("try again?");
+        builder.setMessage(String.format("you beat this level in: %s", timeFormat));
         builder.setCancelable(false);
+
         builder.setPositiveButton("restart", (dialog, which) -> {
             gameView.notWon = true;
             lvl.player.setSpawn(spawnX,spawnY);
             lvl.player.death();
+            clockThread = null;
             clockThread = new clockThread(handler);
             clockThread.start();
-        } );
+        });
         builder.setNegativeButton("go to levels screen", (dialog, which) -> {
+            clockThread = null;
             finish();
         });
         builder.show();
-        String str = String.format("you beat this level in %s" , timeFormat);
-        Toast.makeText(this,str,Toast.LENGTH_LONG).show();
+        updateDataBaseTimes();
+    }
+
+    public void updateDataBaseTimes() {
+        DatabaseReference updateTimes = db.getReference("levels").child(id);
+        updateTimes.child("lastTime").setValue(time);
+
+        updateTimes.child("bestTime").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Long currBest = snapshot.getValue(Long.class);
+                if(currBest == null) return;
+                if (currBest == 0 || time < currBest) {
+                    updateTimes.child("bestTime").setValue(time);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
 

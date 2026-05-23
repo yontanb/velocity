@@ -22,48 +22,45 @@ public class gameView extends View {
     boolean ismovingleft, ismovingright, notWon = true;
     player player;
     Context context;
-    int spawnX, spawnY;
+    boolean pause;
     public gameView(Context context, level lvl) {
         super(context);
         this.context = context;
         this.lvl = lvl;
         this.player = lvl.player;
+        pause = false;
     }
     float offsetX;
     float offsetY;
-    boolean isAir = false;
-    float startAir = 0;
     @Override
     public void onDraw(@NonNull Canvas canvas) {
         float playerX = player.rect.centerX();
         float playerY = player.rect.centerY();
-        float screenCenterX = getWidth()  / 2f;
+        float screenCenterX = getWidth() / 2f;
         float screenCenterY = getHeight() / 2f;
         float offsetX = screenCenterX - playerX;
         float offsetY = screenCenterY - playerY;
-//        Griddots(canvas);
-        canvas.translate(offsetX,offsetY);
+
+        canvas.translate(offsetX, offsetY);
         lvl.drawLevel(canvas);
         lvl.healthDisplay(context);
-        player.gravity();
-        if(ismovingright) {
-            player.moveRight();
+
+        if (!pause) {
+            player.gravity();
+            if (ismovingright) player.moveRight();
+            if (ismovingleft) player.moveLeft();
+            if (player.health == 0) {
+                player.death();
+                player.health = 100;
+            }
+            if (lvl.didWin() && notWon) {
+                notWon = false;
+                win();
+            }
+            lvl.gotCheckpoint();
+            lvl.playerCollide();
+            lvl.playerdamage();
         }
-        if(ismovingleft) {
-            player.moveLeft();
-        }
-        //checks death
-        if(player.health == 0) {
-            player.death();
-            player.health = 100;
-        }
-        if(lvl.didWin() && notWon) {
-            notWon = false;
-            win();
-        }
-        lvl.gotCheckpoint();
-        lvl.playerCollide();
-        lvl.playerdamage();
         invalidate();
     }
     private void Griddots(Canvas canvas) {
@@ -87,5 +84,8 @@ public class gameView extends View {
     }
     public void setOnWinListener(OnWinListener onWinListener) {
         this.onWinListener = onWinListener;
+    }
+    public void togglePause() {
+        pause = !pause;
     }
 }

@@ -55,8 +55,8 @@ public class shape {
     public direction dirToOtherShape( shape other ) {
         if(other == null)
             return  direction.none;
-        float overlapWidth = Math.min(this.rect.right, other.rect.right)-Math.max(this.rect.left, other.rect.left);
-        float overlapHeight = Math.min(this.rect.bottom, other.rect.bottom)-Math.max(this.rect.top, other.rect.top);
+        float overlapWidth = Math.min(this.rect.right, other.rect.right) - Math.max(this.rect.left, other.rect.left);
+        float overlapHeight = Math.min(this.rect.bottom, other.rect.bottom) - Math.max(this.rect.top, other.rect.top);
         if (overlapWidth < overlapHeight) {
             if (this.rect.centerX() > other.rect.centerX())
                 return direction.left;

@@ -10,59 +10,45 @@ public class clockThread extends Thread {
     Handler handler;
     private boolean pause;
     boolean running;
-    public clockThread(Handler handler)
-    {
+    public clockThread(Handler handler) {
         running = true;
         this.handler=handler;
         this.timepassed = 0;
         this.timepaused = 0;
+        this.whenPaused = 0;
+        pause = false;
     }
     @Override
-    public void run()
-    {
-        long timeStart = System.currentTimeMillis();
-        super.run();
-
-        while(running)
-        {
-            if(!pause)
-            {
-                if(whenPaused != 0 )
-                {
-                    timepaused += System.currentTimeMillis() - whenPaused;
+    public void run() {
+        long timeStart = System.nanoTime();
+        while(running) {
+            if(pause) {
+                if(whenPaused == 0) {
+                    whenPaused = System.nanoTime();
+                }
+            } else {
+                if(whenPaused != 0) {
+                    timepaused += System.nanoTime() - whenPaused;
                     whenPaused = 0;
                 }
-
-                timepassed = System.currentTimeMillis() - timeStart - timepaused;
-
-            } else
-            {
-                whenPaused = System.currentTimeMillis();
+                timepassed = (System.nanoTime() - timeStart - timepaused) /1000000;
+                Message msg = handler.obtainMessage();
+                msg.obj = timepassed;
+                handler.sendMessage(msg);
             }
-            Message msg = handler.obtainMessage();
-            msg.obj = timepassed;
-            handler.sendMessage(msg);
-            try
-            {
-                Thread.sleep(10);
+
+            try {
+                Thread.sleep(20);
             } catch (InterruptedException e) {
                 break;
             }
         }
     }
-    public void setPause(boolean pause)
-    {
-        this.pause=pause;
+    public void togglePause() {
+        pause = !pause;
     }
-    public boolean getPause()
-    {
-        return pause;
-    }
-    public long getTimepassed() {
-        return timepassed;
-    }
-    public void stoptimer() {
+    public void stopTimer() {
         running = false;
-        interrupt();
+//        interrupt();
     }
 }

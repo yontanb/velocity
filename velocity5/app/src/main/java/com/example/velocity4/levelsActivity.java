@@ -51,6 +51,8 @@ public class levelsActivity extends levelholder implements View.OnClickListener,
                     saveData data = child.getValue(saveData.class);
                     if(data != null) {
                         level level = data.levelSaved.dataToLevel(context);
+                        level.besttime = data.bestTime;
+                        level.lasttime = data.lastTime;
                         levels.add(level);
                         levelMap.put(child.getKey(),level);
                         level.id = child.getKey();
@@ -61,7 +63,7 @@ public class levelsActivity extends levelholder implements View.OnClickListener,
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("database error", error.getMessage(),error.toException());
+                Log.d("database errfor", error.getMessage(),error.toException());
             }
         });
     }

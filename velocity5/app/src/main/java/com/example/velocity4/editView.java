@@ -84,9 +84,8 @@ public class editView extends View {
         paint.setStrokeWidth(10);
         float leftcorner = -cameraX;
         float topcorner = -cameraY;
-        float startX = (float)Math.floor(leftcorner / 100) * 100;
-        float startY = (float)Math.floor(topcorner / 100) * 100;
-
+        float startX = (float)Math.round(leftcorner / 100) * 100;
+        float startY = (float)Math.round(topcorner / 100) * 100;
         for (float x = startX; x <= leftcorner + getWidth(); x += 100) {
             for (float y = startY; y <= topcorner + getHeight(); y += 100) {
                 canvas.drawPoint(x,y,paint);
