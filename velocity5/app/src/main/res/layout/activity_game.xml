@@ -9,7 +9,8 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/gamelayout">
+        android:id="@+id/gamelayout"
+        android:splitMotionEvents="true">
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,6 +35,7 @@
             android:id="@+id/goLeft"
             android:layout_margin="20dp"
             android:textSize="30dp"
+            android:backgroundTint="@drawable/button_changer"
             />
         <Button
             android:layout_width="wrap_content"
@@ -44,6 +46,7 @@
             android:id="@+id/goRight"
             android:layout_margin="20dp"
             android:textSize="30dp"
+            android:backgroundTint="@drawable/button_changer"
             />
         <Button
             android:layout_width="wrap_content"
@@ -53,6 +56,7 @@
             android:id="@+id/pauseBtn"
             android:layout_margin="20dp"
             android:textSize="20dp"
+            android:backgroundTint="@drawable/button_changer"
             />
         <Button
             android:layout_width="wrap_content"
@@ -63,6 +67,7 @@
             android:id="@+id/jump"
             android:layout_margin="20dp"
             android:textSize="30dp"
+            android:backgroundTint="@drawable/button_changer"
             />
 
 

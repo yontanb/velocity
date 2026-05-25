@@ -23,6 +23,7 @@ public class gameView extends View {
     player player;
     Context context;
     boolean pause;
+    boolean jumped;
     public gameView(Context context, level lvl) {
         super(context);
         this.context = context;
@@ -44,24 +45,40 @@ public class gameView extends View {
         canvas.translate(offsetX, offsetY);
         lvl.drawLevel(canvas);
         lvl.healthDisplay(context);
-
-        if (!pause) {
-            player.gravity();
-            if (ismovingright) player.moveRight();
-            if (ismovingleft) player.moveLeft();
-            if (player.health == 0) {
-                player.death();
-                player.health = 100;
-            }
-            if (lvl.didWin() && notWon) {
-                notWon = false;
-                win();
-            }
-            lvl.gotCheckpoint();
-            lvl.playerCollide();
-            lvl.playerdamage();
-        }
+        updateGame();
         invalidate();
+    }
+    public void updateGame() {
+        if (pause) return;
+
+        if(!(lvl.player.isOnground)) {
+            player.gravity();
+        }
+        if (ismovingright) player.moveRight();
+        if (ismovingleft) player.moveLeft();
+
+        lvl.playerCollide();
+
+        if(jumped) {
+            if(lvl.player.isOnground) {
+                lvl.player.dy = -60;
+                lvl.player.isOnground = false;
+                lvl.player.canDown = true;
+                jumped = false;
+            }
+
+        }
+        lvl.gotCheckpoint();
+        lvl.playerdamage();
+
+        if (player.health == 0) {
+            player.death();
+            player.health = 100;
+        }
+        if (lvl.didWin() && notWon) {
+            notWon = false;
+            win();
+        }
     }
     private void Griddots(Canvas canvas) {
         Paint paint = new Paint();

@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:text="levels"
         android:id="@+id/startbtn"
-        android:backgroundTint="@color/button"
+        android:backgroundTint="@drawable/button_changer"
         android:layout_gravity="center"
         android:layout_margin="10sp"
         />
@@ -32,16 +32,17 @@
         android:layout_height="wrap_content"
         android:text="credits"
         android:id="@+id/credits"
-        android:backgroundTint="@color/button"
+        android:backgroundTint="@drawable/button_changer"
         android:layout_gravity="center"
         android:layout_margin="10sp"
+
         />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="quit"
         android:id="@+id/quit"
-        android:backgroundTint="@color/button"
+        android:backgroundTint="@drawable/button_changer"
         android:layout_gravity="center"
         android:layout_margin="10sp"
         />

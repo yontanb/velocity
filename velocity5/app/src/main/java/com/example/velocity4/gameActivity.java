@@ -33,7 +33,7 @@ public class gameActivity extends levelholder implements View.OnTouchListener, O
     TextView timer;
 
     clockThread clockThread;
-    Handler handler;
+    timehandler timehandler;
     String timeFormat;
     long time;
 
@@ -58,7 +58,7 @@ public class gameActivity extends levelholder implements View.OnTouchListener, O
                 spawnY = lvl.player.startY;
             }
         }
-
+        assert lvl != null;
         gameView = new gameView(this, lvl);
         RelativeLayout relativeLayout = findViewById(R.id.gamelayout);
         relativeLayout.addView(gameView, 0);
@@ -76,20 +76,8 @@ public class gameActivity extends levelholder implements View.OnTouchListener, O
         gameView.setOnWinListener(this);
         //note to self: this just resets the player location for the level start
         lvl.player.death();
-
-        handler = new Handler(msg -> {
-            if(gameView.notWon) {
-                time = (long) msg.obj;
-                long minutes = time / 60000;
-                long seconds = (time / 1000) % 60;
-                long millis = time % 1000;
-                timeFormat = String.format("%d:%02d:%03d", minutes, seconds, millis);
-                timer.setText("time: " + timeFormat);
-            }
-            return true;
-        });
-
-        clockThread = new clockThread(handler);
+        timehandler = new timehandler(this);
+        clockThread = new clockThread(timehandler);
         clockThread.start();
     }
 
@@ -114,17 +102,20 @@ public class gameActivity extends levelholder implements View.OnTouchListener, O
         }
         if (v == jump) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                lvl.player.dy = -60;
+                gameView.jumped = true;
+            }
+            if(event.getAction() == MotionEvent.ACTION_UP) {
+                gameView.jumped = false;
             }
         }
         if(v == pause) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 clockThread.togglePause();
                 gameView.togglePause();
-//                pauseDialog();
+                pauseDialog();
             }
         }
-        return true;
+        return false;
     }
     public void pauseDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -157,7 +148,7 @@ public class gameActivity extends levelholder implements View.OnTouchListener, O
             lvl.player.setSpawn(spawnX,spawnY);
             lvl.player.death();
             clockThread = null;
-            clockThread = new clockThread(handler);
+            clockThread = new clockThread(timehandler);
             clockThread.start();
         });
         builder.setNegativeButton("go to levels screen", (dialog, which) -> {
@@ -186,6 +177,32 @@ public class gameActivity extends levelholder implements View.OnTouchListener, O
 
             }
         });
+    }
+    public void updateTime(long time) {
+        if(gameView.notWon) {
+            long minutes = time / 60000;
+            long seconds = (time / 1000) % 60;
+            long millis = time % 1000;
+            this.time = time;
+            timeFormat = String.format("%d:%02d:%03d", minutes, seconds, millis);
+            timer.setText("time: " + timeFormat);
+        }
+    }
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (timehandler != null) {
+            timehandler.removeCallbacksAndMessages(null);
+        }
+
+        if (clockThread != null) {
+            clockThread.stopTimer();
+            clockThread.interrupt();
+            clockThread = null;
+        }
+        if (lvl != null) {
+            lvl.context = null;
+        }
     }
 }
 

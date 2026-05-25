@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="add new level"
             android:id="@+id/addlvlbtn"
-            android:backgroundTint="@color/button"
+            android:backgroundTint="@drawable/button_changer"
             android:layout_gravity="center"
             android:layout_margin="10sp"
             />
@@ -39,9 +39,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10sp"
-            android:backgroundTint="@color/button"
+            android:backgroundTint="@drawable/button_changer"
             android:layout_alignParentRight="true"
-            android:text="go back" />
+            android:text="go back"
+            />
 
     </RelativeLayout>
 

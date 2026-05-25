@@ -103,7 +103,7 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
             editView.cameraMovement[2] = false;
             editView.cameraMovement[3] = false;
         }
-        return true;
+        return false;
     }
     @Override
     public boolean onMenuItemClick(MenuItem item) {

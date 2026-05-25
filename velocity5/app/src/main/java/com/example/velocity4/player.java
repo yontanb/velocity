@@ -2,11 +2,14 @@ package com.example.velocity4;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 public class player extends shape {
     int health;
     int dx = 20 ,dy = 10;
     int startX, startY;
+    int grav = 3;
+    boolean isOnground;
     public player(int x, int y, int width, int height, String texture, Context context) {
         super(x, y, width, height, texture,context);
         health = 100;
@@ -47,17 +50,11 @@ public class player extends shape {
         if(canRight)
             rect.offset(dx, 0);
     }
-    int grav = 3;
-    boolean isOnground;
     public void gravity() {
-        if((canDown && dy > 0) || (canUp && dy < 0)) {
-            rect.offset(0,dy);
-        } else {
-            dy = 0;
-        }
-        if(dy > 60) {
-            dy = 60;
-
+        Log.d("dy", String.valueOf(dy));
+        rect.offset(0,dy);
+        if(dy > 67) {
+            dy = 67;
         } else {
             dy += grav;
         }

@@ -9,7 +9,7 @@ public class clockThread extends Thread {
     long whenPaused;
     Handler handler;
     private boolean pause;
-    boolean running;
+     volatile boolean running;
     public clockThread(Handler handler) {
         running = true;
         this.handler=handler;
@@ -38,7 +38,7 @@ public class clockThread extends Thread {
             }
 
             try {
-                Thread.sleep(20);
+                Thread.sleep(30);
             } catch (InterruptedException e) {
                 break;
             }
@@ -49,6 +49,6 @@ public class clockThread extends Thread {
     }
     public void stopTimer() {
         running = false;
-//        interrupt();
+        interrupt();
     }
 }

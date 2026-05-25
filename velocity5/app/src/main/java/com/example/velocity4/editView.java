@@ -35,17 +35,23 @@ public class editView extends View {
     [5] -> delete mode
      */
     boolean[] partChosen = {false,false,false,false,false,false};
+    Paint paint;
     public editView(Context context) {
         super(context);
         this.context = context;
         levelEditing = new level(new layer(new ArrayList<>()),new layer(new ArrayList<>()),new layer(new ArrayList<>()),context,false);
-
+        paint = new Paint();
+        paint.setColor(Color.GRAY);
+        paint.setStrokeWidth(10);
 
     }
     public editView(Context context, level level) {
         super(context);
         levelEditing = level;
         this.context = context;
+        paint = new Paint();
+        paint.setColor(Color.GRAY);
+        paint.setStrokeWidth(10);
     }
     public void moveCamera() {
         if(cameraMovement[0]) {
@@ -79,10 +85,7 @@ public class editView extends View {
         y1 = 0;
     }
     private void Griddots(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(Color.GRAY);
-        paint.setStrokeWidth(10);
-        float leftcorner = -cameraX;
+            float leftcorner = -cameraX;
         float topcorner = -cameraY;
         float startX = (float)Math.round(leftcorner / 100) * 100;
         float startY = (float)Math.round(topcorner / 100) * 100;

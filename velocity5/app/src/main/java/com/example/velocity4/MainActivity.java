@@ -65,7 +65,7 @@ public class MainActivity extends levelholder implements View.OnClickListener {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.SECOND,10);
+        calendar.add(Calendar.HOUR,24);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if(manager != null && manager.canScheduleExactAlarms()) {

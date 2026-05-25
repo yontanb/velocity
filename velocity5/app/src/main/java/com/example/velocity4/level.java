@@ -125,6 +125,10 @@ public class level {
                 direction dir = player.dirToOtherShape(s);
                 if (dir == direction.down) {
                     player.canDown = false;
+                    player.isOnground = true;
+                    if(player.dy >= 0) {
+                        player.dy = 0;
+                    }
                 }
                 if (dir == direction.up) {
                     player.canUp = false;
@@ -136,6 +140,9 @@ public class level {
                     player.canRight = false;
                 }
             }
+        }
+        if(player.canDown) {
+            player.isOnground = false;
         }
         if(!player.canLeft || !player.canRight || !player.canDown || !player.canUp) {
             return  true;
