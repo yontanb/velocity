@@ -85,7 +85,7 @@ public class editView extends View {
         y1 = 0;
     }
     private void Griddots(Canvas canvas) {
-            float leftcorner = -cameraX;
+        float leftcorner = -cameraX;
         float topcorner = -cameraY;
         float startX = (float)Math.round(leftcorner / 100) * 100;
         float startY = (float)Math.round(topcorner / 100) * 100;

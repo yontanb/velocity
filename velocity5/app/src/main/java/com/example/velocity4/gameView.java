@@ -24,12 +24,16 @@ public class gameView extends View {
     Context context;
     boolean pause;
     boolean jumped;
+    Paint paint;
     public gameView(Context context, level lvl) {
         super(context);
         this.context = context;
         this.lvl = lvl;
         this.player = lvl.player;
         pause = false;
+        paint = new Paint();
+        paint.setColor(Color.GRAY);
+        paint.setStrokeWidth(10);
     }
     float offsetX;
     float offsetY;
@@ -81,9 +85,6 @@ public class gameView extends View {
         }
     }
     private void Griddots(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(Color.GRAY);
-        paint.setStrokeWidth(10);
         float leftcorner = -offsetX;
         float topcorner = -offsetY;
         float startX = (float)Math.floor(leftcorner / 100) * 100;

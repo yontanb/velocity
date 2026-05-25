@@ -25,7 +25,7 @@ public class level {
         this.obst = obst;
         this.checkpoints = checkpoints;
         this.playerNeeded = playerNeeded;
-        player = new player(300, 300, 100, 150, "ph2", context);
+        player = new player(300, 300, 75, 112, "ph2", context);
 
     }
     public level() {}
