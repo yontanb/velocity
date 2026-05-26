@@ -13,7 +13,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class levelholder extends AppCompatActivity {
+    /**
+     * a arrayList of the current levels for display
+     */
     static ArrayList<level> levels = new ArrayList<>();
+    /**
+     * a map of id -> level to look them up for use in the engines
+     */
     static Map<String,level> levelMap = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {

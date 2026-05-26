@@ -10,6 +10,11 @@ public class levelData {
     ArrayList<shapeData> checkpoints;
     int startX ,startY;
     String levelName;
+
+    /**
+     * creates a new levelData from a existing level
+     * @param L the level you wanna turn into data
+     */
     public levelData(level L) {
         base = new ArrayList<>();
         obst = new ArrayList<>();
@@ -27,6 +32,10 @@ public class levelData {
         this.startY = L.player.startY;
         this.levelName = L.levelName;
     }
+
+    /**
+     * a empty constructor for firebase
+     */
     public levelData() {}
 
     public ArrayList<shapeData> getBase() {
@@ -53,6 +62,11 @@ public class levelData {
         return levelName;
     }
 
+    /**
+     * turns the data into a usable level
+     * @param context the level context
+     * @return a ready to use level from the data
+     */
     public level dataToLevel(Context context) {
         layer base1 = new layer(new ArrayList<>());
         layer obst1 = new layer(new ArrayList<>());

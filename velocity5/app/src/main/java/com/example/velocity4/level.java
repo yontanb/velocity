@@ -19,6 +19,7 @@ public class level {
     long besttime;
     long lasttime;
     String levelName;
+
     public level(layer base, layer obst,layer checkpoints, Context context, boolean playerNeeded) {
         this.context = context;
         this.base = base;

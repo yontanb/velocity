@@ -28,6 +28,10 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
     FirebaseDatabase lvl_saver;
     level level;
     String id = "";
+    /**
+     * the constructor of the activity
+     * initializes all the variables and loads the level into the editor
+     */
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +60,18 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
         down.setOnTouchListener(this);
         quit.setOnTouchListener(this);
     }
+    /**
+     * creates a menu for the editor
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.edit_level_menu, menu);
         return true;
     }
+    /**
+     * detects the clicks of the buttons, and handles them
+     */
     public boolean onTouch(View v, MotionEvent event) {
         if(v == left) {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -105,6 +115,9 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
         }
         return false;
     }
+    /**
+     * detects the clicks in the menu and activates the different modes
+     */
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         editView.switchReset();
@@ -143,6 +156,9 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
         }
         return true;
     }
+    /**
+     * resets the choice of the menu
+     */
     private void resetValueForPartChosen() {
         editView.partChosen[0] = false;
         editView.partChosen[1] = false;
@@ -151,6 +167,10 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
         editView.partChosen[4] = false;
         editView.partChosen[5] = false;
     }
+    /**
+     * the requirements for a valid level
+     * @return true if level valid, false if else
+     */
     public boolean levelReq() {
         for(shape c : level.checkpoints.layer) {
             if(c.isWinner())
@@ -159,6 +179,9 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
         Toast.makeText(this,"not valid level, no end",Toast.LENGTH_LONG).show();
         return false;
     }
+    /**
+     * opens the dialog to finalize a level, save its name and check its validity
+     */
     public void finishlevel() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("enter name");
@@ -177,6 +200,9 @@ public class editLevelsActivity extends levelholder implements View.OnTouchListe
         });
         builder.show();
     }
+    /**
+     * save the level into firebase
+     */
     public void saveLvl() {
         DatabaseReference saver = lvl_saver.getReference("levels").child(id);
         saveData savedata = new saveData(new levelData(level),0,0);

@@ -13,11 +13,18 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 
 public class broadcaster  extends BroadcastReceiver {
+    /**
+    *notification event, activates the other func
+    */
     @Override
     public void onReceive(Context context, Intent intent) {
         sendNotification(context);
         Log.d("notif","notifFired");
     }
+    /**
+     *builds the notification and sends it
+     * @param context used for the building of the notif and sending it
+     */
     private void sendNotification(Context context)
     {
         String channelId = "AlarmChannel";

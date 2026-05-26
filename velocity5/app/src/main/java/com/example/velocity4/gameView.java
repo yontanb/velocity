@@ -25,6 +25,12 @@ public class gameView extends View {
     boolean pause;
     boolean jumped;
     Paint paint;
+
+    /**
+     * creates a new gameView and initializes variables
+     * @param context the context of the gameView
+     * @param lvl the level were playing
+     */
     public gameView(Context context, level lvl) {
         super(context);
         this.context = context;
@@ -37,6 +43,11 @@ public class gameView extends View {
     }
     float offsetX;
     float offsetY;
+
+    /**
+     * draws the level and handles camera translation
+     * @param canvas the canvas on which the the level is drawn
+     */
     @Override
     public void onDraw(@NonNull Canvas canvas) {
         float playerX = player.rect.centerX();
@@ -52,38 +63,48 @@ public class gameView extends View {
         updateGame();
         invalidate();
     }
+
+    /**
+     * updates the game events, like collisions and damage and stuff
+     */
     public void updateGame() {
-        if (pause) return;
+        if (!pause) {
 
-        if(!(lvl.player.isOnground)) {
-            player.gravity();
-        }
-        if (ismovingright) player.moveRight();
-        if (ismovingleft) player.moveLeft();
-
-        lvl.playerCollide();
-
-        if(jumped) {
-            if(lvl.player.isOnground) {
-                lvl.player.dy = -60;
-                lvl.player.isOnground = false;
-                lvl.player.canDown = true;
-                jumped = false;
+            if (!(lvl.player.isOnground)) {
+                player.gravity();
             }
+            if (ismovingright) player.moveRight();
+            if (ismovingleft) player.moveLeft();
 
-        }
-        lvl.gotCheckpoint();
-        lvl.playerdamage();
+            lvl.playerCollide();
 
-        if (player.health == 0) {
-            player.death();
-            player.health = 100;
-        }
-        if (lvl.didWin() && notWon) {
-            notWon = false;
-            win();
+            if (jumped) {
+                if (lvl.player.isOnground) {
+                    lvl.player.dy = -60;
+                    lvl.player.isOnground = false;
+                    lvl.player.canDown = true;
+                    jumped = false;
+                }
+
+            }
+            lvl.gotCheckpoint();
+            lvl.playerdamage();
+
+            if (player.health == 0) {
+                player.death();
+                player.health = 100;
+            }
+            if (lvl.didWin() && notWon) {
+                notWon = false;
+                win();
+            }
         }
     }
+
+    /**
+     * draws the background for the level
+     * @param canvas the canvas to draw the background on
+     */
     private void Griddots(Canvas canvas) {
         float leftcorner = -offsetX;
         float topcorner = -offsetY;
@@ -97,12 +118,25 @@ public class gameView extends View {
         }
     }
     OnWinListener onWinListener;
+
+    /**
+     * win event
+     */
     private void win() {
         onWinListener.OnWin();
     }
+
+    /**
+     * sets a listener that triggers when the player wins so it can handle it
+     * @param onWinListener the listener so it can detect the win
+     */
     public void setOnWinListener(OnWinListener onWinListener) {
         this.onWinListener = onWinListener;
     }
+
+    /**
+     * toggles the game updates
+     */
     public void togglePause() {
         pause = !pause;
     }

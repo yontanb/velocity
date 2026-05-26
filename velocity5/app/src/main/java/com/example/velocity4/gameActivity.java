@@ -42,6 +42,9 @@ public class gameActivity extends levelholder implements View.OnTouchListener, O
 
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     @Override
+    /**
+     * the screen constructor it initializes variables, loads the level and starts the game
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
@@ -80,7 +83,9 @@ public class gameActivity extends levelholder implements View.OnTouchListener, O
         clockThread = new clockThread(timehandler);
         clockThread.start();
     }
-
+    /**
+     * handles the action button clicks
+     */
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -117,9 +122,12 @@ public class gameActivity extends levelholder implements View.OnTouchListener, O
         }
         return false;
     }
+    /**
+     * creates a dialog and pauses the game
+     */
     public void pauseDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("level pause");
+        builder.setTitle("level paused");
         builder.setMessage("return to main menu?");
         builder.setCancelable(false);
 
@@ -134,6 +142,9 @@ public class gameActivity extends levelholder implements View.OnTouchListener, O
         });
         builder.show();
     }
+    /**
+     * creates a dialog for the win of the game
+     */
     @Override
     public void OnWin() {
         clockThread.stopTimer();
@@ -158,7 +169,9 @@ public class gameActivity extends levelholder implements View.OnTouchListener, O
         builder.show();
         updateDataBaseTimes();
     }
-
+    /**
+     * updates the times in the database when you win
+     */
     public void updateDataBaseTimes() {
         DatabaseReference updateTimes = db.getReference("levels").child(id);
         updateTimes.child("lastTime").setValue(time);
@@ -178,6 +191,9 @@ public class gameActivity extends levelholder implements View.OnTouchListener, O
             }
         });
     }
+    /**
+     * updates the text timer on the screen
+     */
     public void updateTime(long time) {
         if(gameView.notWon) {
             long minutes = time / 60000;
@@ -188,6 +204,9 @@ public class gameActivity extends levelholder implements View.OnTouchListener, O
             timer.setText("time: " + timeFormat);
         }
     }
+    /**
+     * gets trigger when exiting the activity, destroys the thread and connections
+     */
     public void onDestroy() {
         super.onDestroy();
 

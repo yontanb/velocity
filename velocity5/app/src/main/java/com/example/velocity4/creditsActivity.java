@@ -12,6 +12,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class creditsActivity extends AppCompatActivity implements View.OnClickListener {
     Button back;
+    /**
+     * initializes the variables and sets the screen layout
+     * gets called on screen creation
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +23,9 @@ public class creditsActivity extends AppCompatActivity implements View.OnClickLi
         back = findViewById(R.id.back);
         back.setOnClickListener(this);
     }
+    /**
+     * detects click to exit activity
+     */
     @Override
     public void onClick(View v) {
         finish();

@@ -21,11 +21,24 @@ public class levelAdapter extends ArrayAdapter<level> {
     ArrayList<level> objects;
     Context context;
     OnDeleteListener deleteListener;
+
+    /**
+     * creates a new levelAdapter
+     * @param context the level context
+     * @param resource not used
+     * @param textViewResourceId not used
+     * @param objects the list of objects to display
+     */
     public levelAdapter(@NonNull Context context, int resource, int textViewResourceId, @NonNull List<level> objects) {
         super(context, resource, textViewResourceId, objects);
         this.context = context;
         this.objects = (ArrayList<level>) objects;
     }
+
+    /**
+     * sets to trigger a event when deleting a level to handle it
+     * @param listener the listener to the deletion
+     */
     public void setOnDeleteListener(OnDeleteListener listener) {
         this.deleteListener = listener;
     }
@@ -51,18 +64,31 @@ public class levelAdapter extends ArrayAdapter<level> {
         del.setOnClickListener(v -> deleteListener.OnDel(objects.get(position),position));
         return view;
     }
-    //starts level based on position
+
+    /**
+     * starts level based on position
+     * @param position the level position in objects
+     */
     public void openLVL(int position) {
         Intent intent = new Intent(context, gameActivity.class);
         intent.putExtra("level_id",objects.get(position).id);
         context.startActivity(intent);
     }
-    //opens level editor based on position
+    /**
+     * opens level editor with level based on position
+     * @param position the level position in objects
+     */
     public void EditLVL(int position) {
         Intent intent = new Intent(context, editLevelsActivity.class);
         intent.putExtra("level_id",objects.get(position).id);
         context.startActivity(intent);
     }
+
+    /**
+     * formats the time into a string
+     * @param time the time in millis
+     * @return the time formatted into string
+     */
     @SuppressLint("DefaultLocale")
     public String formatTime(long time) {
         return String.format("%d:%02d:%03d",time/60000,(time/1000)%60,time%1000);

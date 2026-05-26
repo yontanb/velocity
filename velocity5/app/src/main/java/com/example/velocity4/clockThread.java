@@ -10,6 +10,10 @@ public class clockThread extends Thread {
     Handler handler;
     private boolean pause;
      volatile boolean running;
+    /**
+     *  creates a new clockThread
+     * @param handler the handler to use to send messages
+     */
     public clockThread(Handler handler) {
         running = true;
         this.handler=handler;
@@ -18,6 +22,9 @@ public class clockThread extends Thread {
         this.whenPaused = 0;
         pause = false;
     }
+    /**
+     *the timer run function, accumulates time to send to activity
+     */
     @Override
     public void run() {
         long timeStart = System.nanoTime();
@@ -44,9 +51,15 @@ public class clockThread extends Thread {
             }
         }
     }
+    /**
+     *toggles the pause, to pause the timer
+     */
     public void togglePause() {
         pause = !pause;
     }
+    /**
+     * stops the timer permanently
+     */
     public void stopTimer() {
         running = false;
         interrupt();

@@ -24,6 +24,11 @@ public class levelsActivity extends levelholder implements View.OnClickListener,
     FirebaseDatabase db;
     Button addlvl,goback;
     Context context;
+
+    /**
+     * the constructor of the activity
+     * initializes all the variables and loads the levels into the listView
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +45,11 @@ public class levelsActivity extends levelholder implements View.OnClickListener,
         context = this;
         loadingLvls();
     }
+
+    /**
+     * clears old list and map loads all the levels from the firebase into the list and the map
+     * then updates the adapter
+     */
     public void loadingLvls() {
         DatabaseReference ref = db.getReference("levels");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -68,12 +78,19 @@ public class levelsActivity extends levelholder implements View.OnClickListener,
         });
     }
 
+    /**
+     * triggers when resuming activity, used to refresh the list
+     */
     @Override
     protected void onResume() {
         super.onResume();
         loadingLvls();
     }
 
+    /**
+     * handles the button clicks of the activity
+     * @param v The view that was clicked.
+     */
     @Override
     public void onClick(View v)
     {
@@ -95,6 +112,11 @@ public class levelsActivity extends levelholder implements View.OnClickListener,
         }
     }
 
+    /**
+     * deletes a level from every place, the firebase, the list, and the map
+     * @param L
+     * @param position
+     */
     @Override
     public void OnDel(level L, int position) {
         DatabaseReference ref = db.getReference("levels").child(L.id);

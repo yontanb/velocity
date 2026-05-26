@@ -35,7 +35,12 @@ public class editView extends View {
     [5] -> delete mode
      */
     boolean[] partChosen = {false,false,false,false,false,false};
+
     Paint paint;
+    /**
+     *  constructor for editView
+     * @param context the context of the level
+     */
     public editView(Context context) {
         super(context);
         this.context = context;
@@ -45,6 +50,11 @@ public class editView extends View {
         paint.setStrokeWidth(10);
 
     }
+    /**
+     *  constructor for editView
+     * @param context the context of the level
+     * @param level the level your editing
+     */
     public editView(Context context, level level) {
         super(context);
         levelEditing = level;
@@ -53,6 +63,9 @@ public class editView extends View {
         paint.setColor(Color.GRAY);
         paint.setStrokeWidth(10);
     }
+    /**
+     * moves the camera offsets in the editor
+     */
     public void moveCamera() {
         if(cameraMovement[0]) {
             cameraY += 10;
@@ -67,6 +80,10 @@ public class editView extends View {
             cameraX -= 10;
         }
     }
+    /**
+     * draws the level on the screen canvas
+     * @param canvas the canvas to draw the level on
+     */
     @Override
     public void onDraw(@NonNull Canvas canvas) {
         canvas.translate(cameraX,cameraY);
@@ -79,11 +96,18 @@ public class editView extends View {
     }
     int taps = 0;
     float x1 = 0,y1 = 0;
+    /**
+     * reset the current action when the player switches modes
+     */
     public void switchReset() {
         taps = 0;
         x1 = 0;
         y1 = 0;
     }
+    /**
+     * draws the background of the editor
+     * @param canvas the canvas to draw the background on
+     */
     private void Griddots(Canvas canvas) {
         float leftcorner = -cameraX;
         float topcorner = -cameraY;
@@ -96,6 +120,10 @@ public class editView extends View {
         }
 
     }
+    /**
+     * handles the different modes of editing, like adding a obstacle or deleting
+     * @param event the current touch on the canvas
+     */
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -186,6 +214,12 @@ public class editView extends View {
     return super.onTouchEvent(event);
     }
     ArrayList<shape> AllParts = new ArrayList<>();
+    /**
+     * checks if the point is inside any shapes and returns it
+     * @param x the x coordinate of the point
+     * @param y the y coordinate of the point
+     * @return the shape the point is inside of or null if none
+     */
     private shape isInsidePart(float x, float y) {
         AllParts.clear();
         AllParts.addAll(levelEditing.base.getLayer());
@@ -198,6 +232,10 @@ public class editView extends View {
         }
         return null;
     }
+    /**
+     * removes a shape from the level
+     * @param sToRemove the shape you remove
+     */
     private void removePartFromLevel(shape sToRemove) {
         levelEditing.checkpoints.getLayer().remove(sToRemove);
         levelEditing.obst.getLayer().remove(sToRemove);

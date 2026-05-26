@@ -18,6 +18,11 @@ import java.util.Calendar;
 
 public class MainActivity extends levelholder implements View.OnClickListener {
     Button btn,credits,quit;
+    /**
+     * the constructor of the activity
+     * initializes all the variables and cancels the alarm if there is any
+     * and requests notif permissions from device
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +48,11 @@ public class MainActivity extends levelholder implements View.OnClickListener {
             }
         }
     }
+
+    /**
+     * handles the clicks of the buttons
+     * @param v The view that was clicked.
+     */
     @Override
     public void onClick(View v) {
         if(v == btn) {
@@ -58,6 +68,10 @@ public class MainActivity extends levelholder implements View.OnClickListener {
             finishAffinity();
         }
     }
+
+    /**
+     * sets an alarm when you quit the game for one day later
+     */
     public void setAlarm() {
         AlarmManager manager = (AlarmManager) getSystemService(this.ALARM_SERVICE);
         Intent intent = new Intent(this, broadcaster.class);
